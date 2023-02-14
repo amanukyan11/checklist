@@ -1,0 +1,77 @@
+.container {
+    display: flex;
+    flex-direction: row;
+    height: 100vh;
+    align-items: stretch;
+    justify-content: space-between;
+    background-color:#A8C3BC;
+    
+}
+
+.mainLeft {
+    border-style: solid;
+    flex: 1 1 20%;
+    display: flex;
+}
+
+.mainCenter {
+    border-style: solid;
+    flex: 1 1 60%;
+    display: flex;
+    flex-direction: column;
+}
+
+.mainRight {
+    border-style: solid;
+    flex: 1 1 20%;
+    display: flex;
+    flex-direction: column;
+}
+
+.mainRight > * {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.Menu {
+    flex: 1 1 auto;
+    border: solid;
+    border-width: 1px;
+    text-align: center;
+}
+
+.Tree {
+    flex: 10 1 50%;
+    border: solid;
+    border-width: 1px;
+    text-align: center;
+}
+
+.Timer {
+    flex: 1 1 50%;
+    border: solid;
+    border-width: 1px;
+    text-align: center;
+}
+
+.Checklist {
+    flex: 10 1 auto;
+    border: solid;
+    border-width: 1px;
+    text-align: left;
+    
+}
+
+.ProgressBar {
+    flex: 1 1 auto;
+    border: solid;
+    border-width: 1px;
+    text-align: center;
+}
+
+img {
+    width: 60%;
+    height: auto;
+    display: block;
+}
