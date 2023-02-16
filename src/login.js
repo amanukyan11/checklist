@@ -1,45 +1,41 @@
-import React, { Component } from 'react';
+import React, { Component, forwardRef, useImperativeHandle, useRef } from 'react';
+import Existinguser from './existinguser'
+import Newuser from './newuser'
+import { createRoot } from "react-dom/client";
 
-// function CreateNewProfile() {
-//     return (
-//         <div>
-//             <form>
-//                 <label for="username">New Username:</label>
-//                 <br/>
-//                 <input type="text"></input>
-//                 <br/>
-//                 <label for="password">New Password:</label>
-//                 <br/>
-//                 <input type="text"></input>
-//                 <br/>
-//                 <input type="submit"></input>
-//             </form>
-//         </div>
-//     );
-//   }
- 
 class login extends Component {
+  constructor(props) {
+    super(props);
+      this.showLogin= true
+      this.showNewProfile= false
+      this.increment=0
+      this.buttonText= "Create New Profile"
+      this.switchProfile = this.switchProfile.bind(this);
+   }
+
+   switchProfile = () => {
+        this.showLogin = !this.showLogin;
+        this.showNewProfile = !this.showNewProfile;
+        this.increment = this.increment+1
+          if (this.increment %2 == 0){
+            this.buttonText = "Create New Profile"
+          }
+          else {
+            this.buttonText = "Login"
+          }
+      this.forceUpdate();
+  }
+
   render() {
     return (
-        <div style={{backgroundColor:"#A8C3BC", height: "100vh"}}>
-        <div>
-            <h1 style={{padding: "100px", width: "fit-content", margin:"auto"}}>Green Agenda: A Nature-Inspired To-Do List</h1>
+      <div>
+        {this.showLogin && <Existinguser/>}
+        {this.showNewProfile && <Newuser/>}
+        <div style={{backgroundColor:"#A8C3BC", height: "40vh"}}>
+          <div style={{width: "fit-content", margin:"auto"}}>
+            <button onClick={this.switchProfile}>{this.buttonText}</button>
+          </div>
         </div>
-        <div style={{width: "fit-content", margin:"auto"}}>
-            <form>
-                <label for="username">Username:</label>
-                <br/>
-                <input type="text"></input>
-                <br/>
-                <label for="password">Password:</label>
-                <br/>
-                <input type="text"></input>
-                <br/>
-                <input type="submit"></input>
-            </form>
-            <br/>
-            <button>Create New Account</button>
-      </div>
       </div>
     );
   }
