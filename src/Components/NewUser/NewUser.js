@@ -1,4 +1,5 @@
 import React, { Component, forwardRef, useImperativeHandle, useRef  } from 'react';
+import "./NewUser.css"
 
 class newuser extends Component {
   render() {

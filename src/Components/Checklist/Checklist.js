@@ -1,4 +1,5 @@
-import React, { Component } from 'react';
+import React, { Component, useState } from 'react';
+import "./Checklist.css"
  
 // class checklist extends Component {
 //   render() {
@@ -12,7 +13,7 @@ import React, { Component } from 'react';
  
 // export default checklist;
 
-function Checklist({text}) {
+function Checklist() {
   const [text, setText] = useState("");
 
   const buttonClick = () => {
@@ -29,3 +30,20 @@ function Checklist({text}) {
     </div>
   )
 }
+
+export default Checklist
+
+// class Checklist extends React.Component {
+//   render() {
+//       return (
+//       <React.Fragment>
+//           <h1>Checklist 1</h1>
+//           <ul className='Checklist'>
+//               <li>Item 1</li>
+//               <li>Item 2</li>
+//               <li>Item 3</li>
+//           </ul>
+//       </React.Fragment>
+//       )
+//   }
+// }

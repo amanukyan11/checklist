@@ -1,0 +1,6 @@
+.Tree {
+    flex: 10 1 50%;
+    border: solid;
+    border-width: 1px;
+    text-align: center;
+  }

@@ -1,0 +1,7 @@
+.Checklist {
+    flex: 10 1 auto;
+    border: solid;
+    border-width: 1px;
+    text-align: left;
+    
+  }

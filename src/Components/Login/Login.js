@@ -1,7 +1,8 @@
 import React, { Component, forwardRef, useImperativeHandle, useRef } from 'react';
-import Existinguser from './existinguser'
-import Newuser from './newuser'
+import Existinguser from '../ExistingUser/ExistingUser'
+import Newuser from '../NewUser/NewUser'
 import { createRoot } from "react-dom/client";
+import "./Login.css"
 
 class login extends Component {
   constructor(props) {

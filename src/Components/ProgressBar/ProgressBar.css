@@ -1,3 +1,11 @@
+.ProgressBar {
+  flex: 1 1 auto;
+  border: solid;
+  border-width: 1px;
+  text-align: center;
+  
+}
+
 .meter {
     box-sizing: content-box;
     height: 20px; /* Can be anything */
