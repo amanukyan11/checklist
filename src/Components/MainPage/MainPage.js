@@ -9,6 +9,9 @@ function MainPage () {
         <div className="MainPage">
             <div className="container">
                 <div className="mainLeft">
+                    <h1 className="leftTop">
+                        Menu
+                    </h1>
                     <Menu/>
                 </div>
                 <div className="mainCenter">

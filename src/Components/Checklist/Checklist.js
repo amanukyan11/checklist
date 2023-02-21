@@ -20,33 +20,36 @@ function Checklist() {
     setTasks(newTasks);
   };    
 
-  const handleSubmit = (event) => { //This is the 'Add Task' button.
+  const handleSubmit = (event) => { //This is the 'Add Task' button's functionality.
     event.preventDefault();
     addTask();
   };
 
-  const crossOutTask = (index) => {
+  const crossOutTask = (index) => { //using the 'task' array go to the index and mark the task as 'true'
     const newTasks = [...tasks];
     newTasks[index] = {...tasks[index], isCompleted: true};
     setTasks(newTasks);
   };
   
-
   return (
     <div className="checklist">
       {tasks.map((task, index) => (
-        <div key={index} className={`checklist-task ${task.isCompleted ? 'completed' : ''}`}>
-          <button onClick={() => removeTask(index)}>X</button>
+        <div key={index} className={`checklist-task ${task.isCompleted ? 'completed' : ''}`}> {/* 'completed' is a special case for strikthrough */}
+          <button className="deleteButton" onClick={() => removeTask(index)}>X</button>
           <input
             type="text"
             value={task.text}
             onChange={(event) => updateTask(index, {text: event.target.value, isCompleted: false})}
           />
-          <button onClick={() => crossOutTask(index)}>{task.isCompleted ? '\u2713' : ''}</button>
+          {task.isCompleted ? (
+          <button className="checkButton" onClick={() => crossOutTask(index)}>&#10003;</button>
+          ) : (
+          <button className="emptyButton" onClick={() => crossOutTask(index)}>&shy;</button>
+          )}
         </div>
       ))}
       <form onSubmit={handleSubmit}>
-        <button type="submit">Add Task</button>
+        <button className="newTask" type="submit">Add Task</button>
       </form>
     </div>
   );
