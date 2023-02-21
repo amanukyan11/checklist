@@ -20,6 +20,20 @@
     display: flex;
     flex-direction: column;
   }
+
+  .centerTop {
+    height: 10%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .centerBottom {
+    border-style: solid;
+    display: flex;
+    flex-direction: column;
+    margin-top: auto;
+  }
   
   .mainRight {
     border-style: solid;

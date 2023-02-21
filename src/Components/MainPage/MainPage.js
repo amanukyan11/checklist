@@ -4,7 +4,6 @@ import Timer from '../Timer/Timer';
 import Tree from '../Tree/Tree';
 import Checklist from "../Checklist/Checklist"
 import Menu from '../Menu/Menu';
-
 function MainPage () {
     return (
         <div className="MainPage">
@@ -13,8 +12,13 @@ function MainPage () {
                     <Menu/>
                 </div>
                 <div className="mainCenter">
-                    <Checklist/>
-                    <ProgressBar/>
+                    <h1 className="centerTop">
+                        Checklist
+                    </h1>
+                    <Checklist />
+                    <footer className="centerBottom">
+                        <ProgressBar/>
+                    </footer>
                 </div>
                 <div className="mainRight">
                     <Tree/>

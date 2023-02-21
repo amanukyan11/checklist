@@ -3,5 +3,9 @@
     border: solid;
     border-width: 1px;
     text-align: left;
-    
   }
+
+  .checklist-task.completed input {
+    text-decoration: line-through;
+  }
+  
