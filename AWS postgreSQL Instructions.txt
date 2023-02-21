@@ -35,7 +35,7 @@ The database has been created. It should automatically start running.
 
 11. Navigate back to the database page.
 
-12. Fill out the information in test.js with the following information once it is created:
+12. Fill out the information in init/init_sql.js with the following information once it is created:
 
 	const client = db({
 		host: 'url',
@@ -51,6 +51,29 @@ The database has been created. It should automatically start running.
 	Replace pass with the password created when signing up.
 	Replace name with the database name created.
 
-13. Run test.js
+13. from terminal:
+npm install pg
+npm run init-db
 
-14. PostgreSQL server has been set up.
+14. PostgreSQL database has been set up.
+
+
+TO LOAD SAMPLE DATA:
+15. Update init/load_test_data.js with the following information:
+
+	const client = db({
+		host: 'url',
+		port: port,
+		database: 'postgres',
+		user: 'user',
+		password: 'pass'
+	})
+
+	Replace url with the Endpoint url.
+	Replace port with the Port.
+	Replace user with the username created when signing up.
+	Replace pass with the password created when signing up.
+	Replace name with the database name created.
+
+16. In terminal:
+npm run load-test-data
