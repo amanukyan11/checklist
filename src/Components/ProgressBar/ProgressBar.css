@@ -1,9 +1,8 @@
 .progressBar {
   flex: 1 1 auto;
-  border: solid;
-  border-width: 0px;
   text-align: center;
   position: absolute;
+  border: none;
   bottom: 0;
 }
 

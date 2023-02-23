@@ -5,7 +5,7 @@
     text-align: left;
   }
 
-  .checklist-task.completed input {
+  .checklistTask.completed input {
     text-decoration: line-through;
   }
 

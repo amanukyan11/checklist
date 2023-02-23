@@ -34,7 +34,7 @@ function Checklist() {
   return (
     <div className="checklist">
       {tasks.map((task, index) => (
-        <div key={index} className={`checklist-task ${task.isCompleted ? 'completed' : ''}`}> {/* 'completed' is a special case for strikthrough */}
+        <div key={index} className={`checklistTask ${task.isCompleted ? 'completed' : ''}`}> {/* 'completed' is a special case for strikthrough */}
           <button className="deleteButton" onClick={() => removeTask(index)}>X</button>
           <input
             type="text"
