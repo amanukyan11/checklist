@@ -5,6 +5,8 @@ function Checklist() {
   const [tasks, setTasks] = useState([]); //defines a variable tasks and a function setTask that updates using 'useState'
 
   const addTask = () => {   //adds a new task to the 'task' array and uses setTasks to update the 'task'
+    //TODO #1: check if the current task value is not empty
+    //TODO #2: not show the 'Add task' button until 'save' button is clicked
     setTasks([...tasks, '']);
   };
 
