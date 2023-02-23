@@ -77,3 +77,8 @@ TO LOAD SAMPLE DATA:
 
 16. In terminal:
 npm run load-test-data
+
+**to connect to AWS with command line
+1. install postgresql 
+2. psql -h database.colb6htozgeu.us-west-1.rds.amazonaws.com -U postgres -d postgres -W
+3. when prompted password is testing!!
