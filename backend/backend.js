@@ -5,12 +5,14 @@ const express = require("express");
 const app = express();
 
 // import backend functions to manipulate PostgreSQL server
-const backend = require('./backendTesting.js');
+const backend = require('./database.js');
 
 // Default message when visiting http://localhost:5000
 app.get("/", (req, res) => {
 	res.send('Server is up!');
 });
+
+/*
 
 // checks if a user has signed up already
 // replies with a promise containing true or false
@@ -20,6 +22,8 @@ app.get('/checkUser/:username/:password', async (req, res) => {
 	const ret = await backend.checkUser(username, password);
 	res.send(ret);
 });
+
+*/
 
 // adds a user if they have not already signed up
 // replies with a promise containing true or false if successful
