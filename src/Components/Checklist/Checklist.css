@@ -10,16 +10,12 @@
   }
 
   .deleteButton {
-    /* color: red;
-    border-color: red; */
     color: white;
     background-color: red;
   }
 
   .checkButton {
     font-size:1.3ch;
-    /* color: green;
-    border-color: green; */
     color: white;
     background-color: green;
   }
