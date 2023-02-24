@@ -58,7 +58,7 @@ npm run init-db
 14. PostgreSQL database has been set up.
 
 
-TO LOAD SAMPLE DATA:
+TO LOAD SAMPLE DATA (***LOADING TEST DATA WILL ERASE ALL EXISTING DATA):
 15. Update init/load_test_data.js with the following information:
 
 	const client = db({

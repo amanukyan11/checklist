@@ -2,7 +2,7 @@ const Client = require('pg').Client;
 const R = require('ramda');
 
 // export function for use in backend code
-module.exports = {authenticateUser, addUser, getUserInfo, createChecklist};
+module.exports = {authenticateUser, addUser, getUserInfo, createChecklist, updateChecklist, shareList, growTree, deleteChecklist, deleteUser};
 
 // information to connect to the pgsql server
 const clientInfo = ({
@@ -106,7 +106,9 @@ async function getUserInfo(userID) {
 }
 
 async function createChecklist(userID, listName, newContent, newChecked) {
-
+	if (newContent.length !== newChecked.length) {
+		return { "listid": null };
+	}
 	const query = `
 		with id as (INSERT INTO checklists (name, content, checked) 
 		VALUES ($2, $3, $4)
@@ -124,7 +126,7 @@ async function createChecklist(userID, listName, newContent, newChecked) {
 	try {
 		await client.query(query, values).then(res => listID = res.rows[0]["listid"]);
 	} catch (e) {
-		console.log(e.stack);
+		console.log(e.message);
 	} finally {
 		await client.end();
 		return { "listid": listID };
@@ -132,17 +134,116 @@ async function createChecklist(userID, listName, newContent, newChecked) {
 
 }
 
-/*
+async function updateChecklist(listID, listName, newContent, newChecked) {
+	const query = `
+		UPDATE checklists 
+		SET (name, content, checked) = ($2, $3, $4)
+		WHERE listid::text = $1
+		RETURNING *
+	`;
+	const values = [listID, listName, newContent, newChecked];
 
-test code
+	const client = new Client(clientInfo);
+	await client.connect();
+	let ret = { "status": 1 };
+	try {
+		await client.query(query, values).then(res => ret = res.rows[0]);
+	} catch (e) {
+		console.log(e.stack);
+	} finally {
+		await client.end();
+		return ret;
+	}
+}
 
-checkUser('aster', 'pass23!').then(val => console.log(val));
+async function shareList(listID, newEmail) {
+	const txt = `
+	INSERT INTO perms (listID, userID)
+	VALUES ($1, (SELECT userID
+				FROM user_info
+				WHERE email::text = $2))
+	RETURNING *
+	`;
+	const values = [listID, newEmail];
+	
+	const client = new Client(clientInfo);
+	await client.connect();
+	let ret = { "status": 1 };
+	try {
+		await client.query(txt, values).then(res => ret = res.rows[0]);
+	} catch (e) {
+		console.log(e.stack);
+	} finally {
+		await client.end();
+		return ret;
+	}
+}
 
-addUser('aaaaaa', 'aaaaaa!').then(val => console.log(val));
+async function growTree(userID, amt) {
+	const txt = `
+		UPDATE user_info
+		SET tree_prog = tree_prog + $2
+		WHERE userid::text = $1
+		RETURNING tree_prog
+	`;
+	const values = [userID, amt];
+	
+	const client = new Client(clientInfo);
+	await client.connect();
+	let treeProg = null;
+	try {
+		await client.query(txt, values).then(res => treeProg = res.rows[0]["tree_prog"]);
+	} catch (e) {
+		console.log(e.stack);
+	} finally {
+		await client.end();
+		return { "tree_prog" : treeProg }
+	}
 
-addUser('aaaaaa', 'aaaaaa!').then(val => console.log(val));
+}
 
-*/
+async function deleteChecklist(listID) {
+	const txt = `DELETE FROM checklists WHERE listid::text=$1`;
+	const values = [listID];
 
+	const client = new Client(clientInfo);
+	await client.connect();
+	let status = 1;
+	try {
+		const ret = await client.query(txt, values);
+		if(ret.rowCount > 0){
+			status = 0;
+		}
+		
+	} catch (e) {
+		console.log(e.stack);
+	} finally {
+		await client.end();
+		return { "status": status };
+	}
+}
 
+async function deleteUser(userID) {
+	const listQuery = `
+		DELETE FROM checklists
+		USING perms
+		WHERE perms.userid::text = $1 AND checklists.listid = perms.listid
+	`;
+	const userQuery = `DELETE FROM user_info WHERE userid::text=$1`;
+	const values = [userID];
+
+	const client = new Client(clientInfo);
+	await client.connect();
+	let numDelLists = 0;
+	let numDelUsers = 0;
+	try {
+		await client.query(listQuery, values).then(res => numDelLists = res.rowCount);
+		await client.query(userQuery, values).then(res => numDelUsers = res.rowCount);
+	} catch (e) {
+		console.log(e.message);
+	} finally {
+		await client.end();
+		return {"numDelLists": numDelLists, "numDelUsers": numDelUsers};
+	}
+}
 
