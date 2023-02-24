@@ -31,6 +31,9 @@ function Checklist() {
     if (numberOfTasks !== 0) {
       setNumberOfTasks(numberOfTasks - 1); 
     }
+    if (tasks[index].isCompleted) {
+      setCompleteTasks(completedTasks - 1);
+    }
     setTasks(newTasks);
   };    
 
@@ -88,15 +91,15 @@ export default Checklist;
 
 
 /*Add a save button 
-  -when text box is clicked, add a new button next to 'Add Task' DONE
-  -Only save and update number of tasks counter when 'save' button is clicked DONE
+  -when text box is clicked, add a new button next to 'Add Task' **DONE**
+  -Only save and update number of tasks counter when 'save' button is clicked **DONE**
 */
-//Be able to un-check box DONE
-//add a task counter DONE
+//Be able to un-check box **DONE**
+//add a task counter **DONE**
 
 /*ISSUES
 -Should not be able to click "Add Task" if the 'save' button has not been clicked AND the text box must be filled with something
--When a completed task is removed, decrease "completedTask" counter
+-When a completed task is removed, decrease "completedTask" counter **DONE**
 -Cannot click check box if task is empty
 -If text box is empty, clicking save should NOT updated "numberOfTasks"
 -If you already have a task in text box and you have clicked 'Save' updating the "numberOfTasks" counter, editing it and clicking save should NOT increase counter.
