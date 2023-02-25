@@ -13,11 +13,11 @@ function Checklist() {
     setTasks([...tasks, '']);
   };
 
-  function incramentTasks () {
-    if (isTextBoxActive) {
+  function incramentTasks() {
+    if (isTextBoxActive && tasks.filter(task => task.text.trim() !== '').length > 0) {
       setNumberOfTasks(numberOfTasks + 1);
     }
-  }
+  }  
 
   const updateTask = (index, value) => { //takes in an index and value and creates a new array by copying the current 'task' array. Then newTasks is updated and set with the new index and value.
     const newTasks = [...tasks];
@@ -95,16 +95,16 @@ export default Checklist;
 
 /*Add a save button 
   -when text box is clicked, add a new button next to 'Add Task' **DONE**
-  -Only save and update number of tasks counter when 'save' button is clicked **DONE**
+  -Only save and update number of tasks counter when 'Save' button is clicked **DONE**
 */
 //Be able to un-check box **DONE**
 //add a task counter **DONE**
 
 /*ISSUES
--Should not be able to click "Add Task" if the 'save' button has not been clicked AND the text box must be filled with something
+-Should not be able to click "Add Task" if the 'Save' button has not been clicked AND the text box must be filled with something
 -When a completed task is removed, decrease "completedTask" counter **DONE**
 -Cannot click check box if task is empty **DONE**
--If text box is empty, clicking save should NOT updated "numberOfTasks"
+-If text box is empty, clicking Save should NOT update "numberOfTasks"
 -If you already have a task in text box and you have clicked 'Save' updating the "numberOfTasks" counter, editing it and clicking save should NOT increase counter.
--If the user enters text and clicks off before hitting save the text should be deleted
+-If the user enters text and clicks off before hitting Save the text should be deleted
 */
