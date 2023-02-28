@@ -1,7 +1,49 @@
-.Timer {
+/* .Timer {
     flex: 1 1 50%;
     border: 0;
     border-top: solid;
     text-align: center;
+  } */
+  
+  .timer-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+  }
+  
+  .session-type {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+  }
+  
+  .timer {
+    font-size: 5rem;
+    margin-bottom: 2rem;
+  }
+  
+  .buttons {
+    padding: 1rem;
+    font-size: 1.5rem;
+    margin-right: 1rem;
+    cursor: pointer;
+  }
+  
+  .buttons:last-of-type {
+    margin-right: 0;
+  }
+  
+  .buttons:focus {
+    outline: none;
+  }
+  
+  .buttons:active {
+    transform: translateY(2px);
+  }
+  
+  .buttons:disabled {
+    cursor: not-allowed;
+    opacity: 0.5;
   }
   

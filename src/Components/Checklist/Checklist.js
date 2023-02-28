@@ -108,3 +108,7 @@ export default Checklist;
 -If you already have a task in text box and you have clicked 'Save' updating the "numberOfTasks" counter, editing it and clicking save should NOT increase counter.
 -If the user enters text and clicks off before hitting Save the text should be deleted
 */
+
+//TODO
+//-add a 'check all' button that deletes all the compelted tasks, and gives that info to the tree, call the backend tree function
+//-when 'save' is clicked, call the backend function to update with the text and bool
