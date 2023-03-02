@@ -1,0 +1,26 @@
+.Checklist {
+    flex: 10 1 auto;
+    border: solid;
+    border-width: 1px;
+    text-align: left;
+  }
+
+  .checklistTask.completed input {
+    text-decoration: line-through;
+  }
+
+  .deleteButton {
+    color: white;
+    background-color: red;
+  }
+
+  .checkButton {
+    font-size:1.3ch;
+    color: white;
+    background-color: green;
+  }
+  
+  .emptyButton {
+    font-size:1.5ch;
+    width: 24px;
+  }
