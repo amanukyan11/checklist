@@ -10,13 +10,13 @@ function MainPage () {
             <div className="container">
                 <div className="mainLeft">
                     <h1 className="leftTop">
-                        Menu
+                        <div className="titles">Menu</div>
                     </h1>
                     <Menu/>
                 </div>
                 <div className="mainCenter">
                     <h1 className="centerTop">
-                        Checklist
+                        <div className="titles">Checklist</div>
                     </h1>
                     <Checklist />
                     <footer className="centerBottom">
@@ -24,7 +24,13 @@ function MainPage () {
                     </footer>
                 </div>
                 <div className="mainRight">
+                    <h1 className="topRight">
+                        <div className="titles">Success Sapling</div>
+                    </h1>
                     <Tree/>
+                    <h1 className="bottomRight">
+                        <div className="titles">Pomodoro Timer</div>
+                    </h1>
                     <Timer/>
                 </div>
             </div>

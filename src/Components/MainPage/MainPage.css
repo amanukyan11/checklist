@@ -36,6 +36,15 @@
     align-items: center;
   }
 
+  .titles {
+    /* background-color: #c3a8af; */
+    /* background-color: #306160; */
+    /* background-color: #3b7876; */
+    background-color: #c4977d;
+    padding: 15px;
+    border-radius: 10px;
+  }
+
   .centerBottom {
     display: flex;
     flex-direction: column;
@@ -46,6 +55,7 @@
     flex: 1 1 20%;
     display: flex;
     flex-direction: column;
+    height: 50%;
   }
   
   .mainRight > * {

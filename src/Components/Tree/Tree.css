@@ -1,4 +1,5 @@
 .Tree {
     flex: 10 1 50%;
     text-align: center;
+    border-bottom: solid; 
   }

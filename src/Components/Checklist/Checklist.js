@@ -3,7 +3,7 @@ import "./Checklist.css"
 
 function Checklist() {
   const [tasks, setTasks] = useState([]); //defines a variable tasks and a function setTask that updates using 'useState'
-  const [numberOfTasks, setNumberOfTasks] = useState(0); //used to incrament the number of tasks that have been created.
+  const [numberOfTasks, setNumberOfTasks] = useState(0); //used to increment the number of tasks that have been created.
   const [completedTasks, setCompleteTasks] = useState(0);
   const [isTextBoxActive, setTextBoxActive] = useState(false);
 
@@ -13,8 +13,8 @@ function Checklist() {
     setTasks([...tasks, '']);
   };
 
-  function incramentTasks() {
-    if (isTextBoxActive && tasks.filter(task => task.text.trim() !== '').length > 0) {
+  function incrementTasks() {
+    if (isTextBoxActive && tasks.filter(task => task.text.trim() !== '').length > numberOfTasks) {
       setNumberOfTasks(numberOfTasks + 1);
     }
   }  
@@ -80,7 +80,7 @@ function Checklist() {
         {isTextBoxActive && (
         <button className="saveButton" onClick={() => {
           setTextBoxActive(false)
-          incramentTasks();
+          incrementTasks();
           }}>Save</button>)}
       </form>
       <div>
@@ -104,11 +104,12 @@ export default Checklist;
 -Should not be able to click "Add Task" if the 'Save' button has not been clicked AND the text box must be filled with something
 -When a completed task is removed, decrease "completedTask" counter **DONE**
 -Cannot click check box if task is empty **DONE**
--If text box is empty, clicking Save should NOT update "numberOfTasks"
--If you already have a task in text box and you have clicked 'Save' updating the "numberOfTasks" counter, editing it and clicking save should NOT increase counter.
--If the user enters text and clicks off before hitting Save the text should be deleted
+-If text box is empty, clicking Save should NOT update "numberOfTasks" **DONE**
+-If you already have a task in text box and you have clicked 'Save' updating the "numberOfTasks" counter, editing it and clicking save should NOT increase counter. **DONE**
+-
 */
 
 //TODO
 //-add a 'check all' button that deletes all the compelted tasks, and gives that info to the tree, call the backend tree function
 //-when 'save' is clicked, call the backend function to update with the text and bool
+//-when something is typed, and it's not saved, but it's deleted, the "numberOfTasks" should not decrease

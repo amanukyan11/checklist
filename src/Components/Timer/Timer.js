@@ -14,7 +14,7 @@ import React, { useState, useEffect } from "react";
 function PomodoroTimer() {
   const [time, setTime] = useState(25 * 60); // 25 minutes in seconds
   const [isRunning, setIsRunning] = useState(false);
-  const [sessionType, setSessionType] = useState("work");
+  const [sessionType, setSessionType] = useState("Working Time");
   const [sessionCount, setSessionCount] = useState(0);
 
   useEffect(() => {
@@ -25,16 +25,16 @@ function PomodoroTimer() {
       }, 1000);
     } else if (isRunning && time === 0) {
       setSessionCount((prevCount) => prevCount + 1);
-      if (sessionType === "work" && sessionCount < 4) {
-        setSessionType("break");
-        setTime(5 * 60); // 5 minutes break
-      } else if (sessionType === "work" && sessionCount === 4) {
-        setSessionType("longBreak");
+      if (sessionType === "Working Time" && sessionCount < 4) {
+        setSessionType("Break Time");
+        setTime(5 * 60); // 5 minutes Break Time
+      } else if (sessionType === "Working Time" && sessionCount === 4) {
+        setSessionType("Long Break Time");
         setTime(15 * 60); // 15 minutes break
         setSessionCount(0);
       } else {
-        setSessionType("work");
-        setTime(25 * 60); // 25 minutes work
+        setSessionType("Working Time");
+        setTime(25 * 60); // 25 minutes Working Time
       }
     }
     return () => clearInterval(interval);
@@ -45,7 +45,7 @@ function PomodoroTimer() {
   const resetTimer = () => {
     setTime(25 * 60);
     setIsRunning(false);
-    setSessionType("work");
+    setSessionType("Working Time");
     setSessionCount(0);
   };
 
@@ -56,17 +56,28 @@ function PomodoroTimer() {
   };
 
   return (
-    <div>
-      <h1>Pomodoro Timer</h1>
-      <div>
-        <div>{sessionType}</div>
-        <div>{formatTime(time)}</div>
-        <button className="buttons" onClick={startTimer}>Start</button>
-        <button className="buttons" onClick={pauseTimer}>Pause</button>
-        <button className="buttons" onClick={resetTimer}>Reset</button>
+    <div className="timerContainer">
+      <div className="timerCounter">
+        <h1 className="time">{formatTime(time)}</h1>
+        <div className="timerButtons">
+          <button className="buttons" onClick={startTimer}>Start</button>
+          <button className="buttons" onClick={pauseTimer}>Pause</button>
+          <button className="buttons" onClick={resetTimer}>Reset</button>
+        </div>
+        <div className="stateOfTimer">
+          <footer>{sessionType}</footer>
+        </div>
       </div>
     </div>
   );
 }
 
 export default PomodoroTimer;
+
+/* 
+        <h1>{formatTime(time)}</h1>
+        <button className="buttons" onClick={startTimer}>Start</button>
+        <button className="buttons" onClick={pauseTimer}>Pause</button>
+        <button className="buttons" onClick={resetTimer}>Reset</button>
+        <footer>{sessionType}</footer>
+*/
