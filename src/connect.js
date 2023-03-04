@@ -34,7 +34,7 @@ async function createChecklist(userID, listName, newContent, newChecked) {
 async function updateChecklist(listID, listName, newContent, newChecked) {
 	const content = JSON.stringify(newContent);
 	const checked = JSON.stringify(newChecked);
-	const res = await fetch(`http://localhost:5000/updateChecklist/${listID}/${listName}/${content}/${checked}`);
+	const res = await fetch(`http://localhost:5000/updateChecklist/${listID}/${listName}/${content}/${checked}`, { mode: 'no-cors' });
 	const response = await res.text();
 	const ret = JSON.parse(response);
 	return ret;

@@ -8,7 +8,8 @@ function Checklist() {
   const [completedTasks, setCompleteTasks] = useState(0);
   const [isTextBoxActive, setTextBoxActive] = useState(false);
   const listID = "9f5f0dad-1324-4b62-a334-e131700f7603"; // TEMPORARY LISTID since listID is not stored yet
-
+  // before testing, query db: INSERT INTO checklists (listid) VALUES ('9f5f0dad-1324-4b62-a334-e131700f7603'::uuid);
+  const listName = "Test List"; // TEMPORARY LISTNAME since listname is not stored yet
   const addTask = () => {   //adds a new task to the 'task' array and uses setTasks to update the 'task'
     //TODO #1: check if the current task value is not empty
     //TODO #2: not show the 'Add task' button until 'save' button is clicked
@@ -31,7 +32,7 @@ function Checklist() {
       let alertMsg = 'Something went wrong. List not shared.'
       connect.shareList(listID, email)
         .then((res) => alertMsg = `List shared with ${email}.`)
-        .catch((e) => console.log(e.detail)); 
+        .catch((e) => console.log(e.message)); 
       alert(alertMsg);
     }
   }
@@ -74,6 +75,19 @@ function Checklist() {
     }
   };
   
+  function updateDB() {
+    const content = [];
+    const checked = [];
+    for (let i = 0; i < tasks.length; i++) {
+      content.push(tasks[i].text.trim());
+      checked.push(tasks[i].isCompleted);
+    }
+    connect.updateChecklist(listID, listName, content, checked)
+      .then((res) => console.log(res))
+      .catch((e) => console.log(e.message))
+      .finally(() => console.log("Checklist updated"));
+  }
+
   return (
     <div className="checklist">
       {tasks.map((task, index) => (
@@ -98,6 +112,7 @@ function Checklist() {
         <button className="saveButton" onClick={() => {
           setTextBoxActive(false)
           incramentTasks();
+          updateDB();
           }}>Save</button>)}
       </form>
       <div> 
