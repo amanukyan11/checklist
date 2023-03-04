@@ -41,7 +41,7 @@ async function updateChecklist(listID, listName, newContent, newChecked) {
 }
 
 async function shareList(listID, newEmail) {
-	const res = await fetch(`http://localhost:5000/shareList/${listID}/${newEmail}`);
+	const res = await fetch(`http://localhost:5000/shareList/${listID}/${newEmail}`, { mode: 'no-cors' });
 	const response = await res.text();
 	const ret = JSON.parse(response);
 	return ret;

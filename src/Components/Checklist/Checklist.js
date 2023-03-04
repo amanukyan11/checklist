@@ -1,11 +1,13 @@
 import React, { useState } from 'react';
-import "./Checklist.css"
+import "./Checklist.css";
+const connect = require(`../../connect.js`);
 
 function Checklist() {
   const [tasks, setTasks] = useState([]); //defines a variable tasks and a function setTask that updates using 'useState'
   const [numberOfTasks, setNumberOfTasks] = useState(0); //used to incrament the number of tasks that have been created.
   const [completedTasks, setCompleteTasks] = useState(0);
   const [isTextBoxActive, setTextBoxActive] = useState(false);
+  const listID = "9f5f0dad-1324-4b62-a334-e131700f7603"; // TEMPORARY LISTID since listID is not stored yet
 
   const addTask = () => {   //adds a new task to the 'task' array and uses setTasks to update the 'task'
     //TODO #1: check if the current task value is not empty
@@ -14,10 +16,25 @@ function Checklist() {
   };
 
   function incramentTasks() {
-    if (isTextBoxActive && tasks.filter(task => task.text.trim() !== '').length > 0) {
-      setNumberOfTasks(numberOfTasks + 1);
+    const nonEmptyTasks = tasks.filter(task => task.text.trim() !== '').length
+    if (isTextBoxActive && nonEmptyTasks > 0) {
+      setNumberOfTasks(nonEmptyTasks);
     }
   }  
+
+  function shareList() {
+    let email = prompt("Enter the email of the person you wish to share with:");
+    if (email === null || email === "") {
+      alert("No email entered. List not shared");
+    }
+    else {
+      let alertMsg = 'Something went wrong. List not shared.'
+      connect.shareList(listID, email)
+        .then((res) => alertMsg = `List shared with ${email}.`)
+        .catch((e) => console.log(e.detail)); 
+      alert(alertMsg);
+    }
+  }
 
   const updateTask = (index, value) => { //takes in an index and value and creates a new array by copying the current 'task' array. Then newTasks is updated and set with the new index and value.
     const newTasks = [...tasks];
@@ -83,6 +100,9 @@ function Checklist() {
           incramentTasks();
           }}>Save</button>)}
       </form>
+      <div> 
+        <button onClick={()=>shareList()}>Share List</button>
+      </div>
       <div>
     <p>Number of tasks: {numberOfTasks} Number of completed tasks: {completedTasks}</p>
   </div>
