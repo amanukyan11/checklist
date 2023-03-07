@@ -7,9 +7,10 @@ import Login from "../Login/Login"
 function App () {
   return (
     <div className = "App">
-      {/* TO SWITCH BETWEEN LOGIN AND MAIN PAGE JUST COMMENT OUT THE ONE YOU DONT WANT TO EDIT */}
-      <MainPage />
-      {/* <Login /> */} 
+      <Routes>
+        <Route path="/" element={<Login />} />
+        <Route path="/mainpage" element={<MainPage />} />
+      </Routes>
     </div>
   );
 }

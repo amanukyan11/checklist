@@ -2,6 +2,16 @@ import React, { Component, forwardRef, useImperativeHandle, useRef  } from 'reac
 import "./NewUser.css"
 
 class newuser extends Component {
+  submit = () => {
+    var x = document.getElementById("loginuser").elements[0].value;
+    var y = getUserInfo(x);
+    if(y != null){
+      alert("That username/password already exists.");
+    }
+    else{
+      <Navigate to="/mainpage" />
+    }
+  }
   render() {
     return (
         <div style={{backgroundColor:"#A8C3BC", height: "60vh"}}>
