@@ -1,5 +1,8 @@
 import React, { Component, forwardRef, useImperativeHandle, useRef  } from 'react';
 import "./NewUser.css"
+import { Navigate } from 'react-router-dom';
+import getUserInfo from "../../connect.js"
+import addUser from "../../connect.js"
 
 class newuser extends Component {
   submit = () => {
@@ -9,6 +12,7 @@ class newuser extends Component {
       alert("That username/password already exists.");
     }
     else{
+      addUser(x, document.getElementById("loginuser").elements[1].value);
       <Navigate to="/mainpage" />
     }
   }
