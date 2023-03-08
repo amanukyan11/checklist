@@ -1,3 +1,4 @@
+
 module.exports = {authenticateUser, addUser, getUserInfo, createChecklist, updateChecklist, shareList, growTree, deleteChecklist, deleteUser};
 
 async function addUser(email, password) {
@@ -16,6 +17,7 @@ async function authenticateUser(email, password) {
 }
 
 async function getUserInfo(userID) {
+	console.log("FUCK YOU BITC FU");
 	const res = await fetch(`http://localhost:5000/getUserInfo/${userID}`);
 	const response = await res.text();
 	const ret = JSON.parse(response);
