@@ -1,0 +1,84 @@
+set up prelimnary backend connection
+figure out aws writeup
+event handlers??
+
+1. Sign up for an Amazon AWS account at https://aws.amazon.com/
+
+2. Click on the Services icon in the upper left corner, then click on Database, then RDS.
+
+3. Click "Create Database."
+
+4. Select the following options, from top to bottom:
+	Easy create
+	PostgreSQL
+	Whichever tier suits your needs
+
+5. Name the database "database."
+
+6. Make the master username and master password anything you would like, but remember it for later.
+
+7. Click "Create database" once all of the options have been filled out.
+
+8. In the new screen that popped up, choose the name of the database that was just created.
+   Wait for it to finish being created, which should be indicated in the status section in summary.
+
+The database has been created. It should automatically start running.
+
+8. Go to Modify, then Additional Configuration under Connectivity. Set Public Access to Publicly Accessible.
+   Wait for it to finish modifying.
+
+9. Click on VPC Security Groups, then inbound rules, then the corresponding security group ID, then "Edit inbound rules."
+
+10. Add a rule with:
+	Type: All traffic
+	Source: Anywhere - IPv4 or Anywhere IPv6, depending on your IP address.
+
+11. Navigate back to the database page.
+
+12. Fill out the information in init/init_sql.js with the following information once it is created:
+
+	const client = db({
+		host: 'url',
+		port: port,
+		database: 'postgres',
+		user: 'user',
+		password: 'pass'
+	})
+
+	Replace url with the Endpoint url.
+	Replace port with the Port.
+	Replace user with the username created when signing up.
+	Replace pass with the password created when signing up.
+	Replace name with the database name created.
+
+13. from terminal:
+npm install pg
+npm run init-db
+
+14. PostgreSQL database has been set up.
+
+
+TO LOAD SAMPLE DATA (***LOADING TEST DATA WILL ERASE ALL EXISTING DATA):
+15. Update init/load_test_data.js with the following information:
+
+	const client = db({
+		host: 'url',
+		port: port,
+		database: 'postgres',
+		user: 'user',
+		password: 'pass'
+	})
+
+	Replace url with the Endpoint url.
+	Replace port with the Port.
+	Replace user with the username created when signing up.
+	Replace pass with the password created when signing up.
+	Replace name with the database name created.
+
+16. In terminal:
+npm run load-test-data
+
+**to connect to AWS with command line
+1. install postgresql 
+2. psql -h database.colb6htozgeu.us-west-1.rds.amazonaws.com -U postgres -d postgres -W
+3. when prompted password is testing!!
