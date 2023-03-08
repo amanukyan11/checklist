@@ -5,7 +5,8 @@ function Checklist() {
   const [tasks, setTasks] = useState([]); //defines a variable tasks and a function setTask that updates using 'useState'
   const [numberOfTasks, setNumberOfTasks] = useState(0); //used to increment the number of tasks that have been created.
   const [completedTasks, setCompleteTasks] = useState(0);
-  const [isTextBoxActive, setTextBoxActive] = useState(false);
+  const [isTextBoxActive, setTextBoxActive] = useState(false); 
+  const [isSaved, setIsSaved] = useState(true); 
 
   const addTask = () => {   //adds a new task to the 'task' array and uses setTasks to update the 'task'
     //TODO #1: check if the current task value is not empty
@@ -16,6 +17,7 @@ function Checklist() {
   function incrementTasks() {
     if (isTextBoxActive && tasks.filter(task => task.text.trim() !== '').length > numberOfTasks) {
       setNumberOfTasks(numberOfTasks + 1);
+      setIsSaved(true);
     }
   }  
 
@@ -39,7 +41,10 @@ function Checklist() {
 
   const handleSubmit = (event) => { //This is the 'Add Task' button's functionality.
     event.preventDefault();
-    addTask();
+    if(isSaved){
+      addTask();
+      setIsSaved(false);
+    }
   };
 
   const crossOutTask = (index) => {
@@ -85,8 +90,8 @@ function Checklist() {
       </form>
       <div>
     <p>Number of tasks: {numberOfTasks} Number of completed tasks: {completedTasks}</p>
+      </div>
   </div>
-    </div>
   );
 }
 
