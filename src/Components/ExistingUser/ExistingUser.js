@@ -13,40 +13,20 @@ class existinguser extends Component {
   }
   submit = event => {
     event.preventDefault();
-    var x = document.getElementById("loginuser").elements[0].value;
-    var userid = null
-    authenticateUser(x, document.getElementById("loginuser").elements[1].value)
+    const username = document.getElementById("loginuser").elements[0].value;
+    const password = document.getElementById("loginuser").elements[1].value;
+    authenticateUser(username, password)
       .then((res) => {
-        console.log(`userInfoResult: ${res}`);
-        userid = res["userid"];
+        if (res["userid"] === null) {
+          alert("Wrong password. Please try again!");
+        }
+        else {
+          this.props.onLogin(res["userid"]);
+          this.state.user = true;
+        }
+      
       })
       .catch((e) => console.log(e.message));
-    if (userid === null) {
-      alert("Wrong password. Please try again!");
-    }
-    else {
-      this.props.onLogin(userid);
-      this.state.user = true;
-    }
-
-
-    
-    /*
-    getUserInfo.then(function() {
-      promise = true;
-    });
-    if(promise == true){
-      var z = authenticateUser(x, document.getElementById("loginuser").elements[1].value);
-      if (z == true){
-        this.setState({ user:true })
-      }
-      else{
-        alert("Wrong password. Please try again!");
-      }
-    }
-    else{
-      alert("This account does not appear to exist. Please try again!");
-    }*/
   };
   render() {
     console.log(this.state.user)

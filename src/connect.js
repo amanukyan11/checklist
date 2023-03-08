@@ -10,7 +10,7 @@ async function addUser(email, password) {
 
 async function authenticateUser(email, password) {
 	console.log("calling authenticateUser");
-	const res = await fetch(`http://localhost:5000/authenticateUser/${email}/${password}`, { mode: 'no-cors'});
+	const res = await fetch(`http://localhost:5000/authenticateUser/${email}/${password}`);
 	const response = await res.text();
 	console.log(response)
 	const ret = JSON.parse(response);
@@ -19,7 +19,7 @@ async function authenticateUser(email, password) {
 }
 
 async function getUserInfo(userID) {
-	const res = await fetch(`http://localhost:5000/getUserInfo/${userID}`, { mode: 'no-cors'});
+	const res = await fetch(`http://localhost:5000/getUserInfo/${userID}`);
 	const response = await res.text();
 	const ret = JSON.parse(response);
 	return ret;

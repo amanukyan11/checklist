@@ -7,6 +7,11 @@ const app = express();
 // import backend functions to manipulate PostgreSQL server
 const database = require('./database.js');
 
+// use cors for testing site on the same machine
+const cors = require('cors');
+app.use(cors())
+
+
 // Default message when visiting http://localhost:5000
 app.get("/", (req, res) => {
 	res.send('Server is up!');
@@ -40,11 +45,9 @@ app.get("/addUser/:email/:password", async (req, res) => {
 // checks if user exists based on email and password
 // returns JSON object with either null userid or nonnull
 app.get("/authenticateUser/:email/:password", async (req, res) => {
-	console.log("backend.js authenticateUser")
 	const email = req.params.email;
 	const password = req.params.password;
 	const response = await database.authenticateUser(email, password);
-	console.log(response);
 	const ret = JSON.stringify(response);
 	res.send(ret);
 });
