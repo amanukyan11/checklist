@@ -15,6 +15,21 @@ class existinguser extends Component {
     event.preventDefault();
     var x = document.getElementById("loginuser").elements[0].value;
     var promise = false;
+    var userid = null
+    authenticateUser(x, document.getElementById("loginuser").elements[1].value)
+      .then((res) => {z = res["userid"]})
+      .catch((e) => console.log(e.message));
+    if (userid === null) {
+      alert("Wrong password. Please try again!");
+    }
+    else {
+      this.props.onLogin(userid);
+      this.state.user = true;
+    }
+
+
+    
+    /*
     getUserInfo.then(function() {
       promise = true;
     });
@@ -29,7 +44,7 @@ class existinguser extends Component {
     }
     else{
       alert("This account does not appear to exist. Please try again!");
-    }
+    }*/
   };
   render() {
     console.log(this.state.user)
