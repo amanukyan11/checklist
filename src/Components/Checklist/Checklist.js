@@ -28,15 +28,17 @@ function Checklist() {
   };
 
   const removeTask = (index) => { //remove tasks by copying the 'tasks' array into newTasks then using the .splice function the item from the list based on the index is removed. 'tasks' is updated
-    const newTasks = [...tasks];
-    newTasks.splice(index, 1);
-    if (numberOfTasks !== 0) {
-      setNumberOfTasks(numberOfTasks - 1); 
+    if(isSaved){
+      const newTasks = [...tasks];
+      newTasks.splice(index, 1);
+      if (numberOfTasks !== 0) {
+        setNumberOfTasks(numberOfTasks - 1); 
+      }
+      if (tasks[index].isCompleted) {
+        setCompleteTasks(completedTasks - 1);
+      }
+      setTasks(newTasks);
     }
-    if (tasks[index].isCompleted) {
-      setCompleteTasks(completedTasks - 1);
-    }
-    setTasks(newTasks);
   };    
 
   const handleSubmit = (event) => { //This is the 'Add Task' button's functionality.
