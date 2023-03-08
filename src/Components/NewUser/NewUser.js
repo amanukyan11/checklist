@@ -1,7 +1,7 @@
 import React, { Component, forwardRef, useImperativeHandle, useRef  } from 'react';
 import "./NewUser.css"
 import { Navigate } from 'react-router-dom';
-import {getUserInfo, addUser} from "./connect"
+import {authenticateUser, addUser} from "../../connect"
 
 
 class newuser extends Component {
@@ -15,15 +15,22 @@ class newuser extends Component {
   submit2 = event => {
     event.preventDefault();
     var x = document.getElementById("login2user").elements[0].value;
-    var promise = false;
-    getUserInfo.then(function() {
-      promise = true;
-    })
-    if(promise == false){
+    var userid = null;
+    authenticateUser(x, document.getElementById("login2user").elements[1].value)
+      .then((res) => {
+        userid = res["userid"];
+      })
+      .catch((e) => console.log(e.message));
+    if(userid != null){
       alert("That username/password already exists.");
     }
     else{
-      addUser(x, document.getElementById("login2user").elements[1].value);
+      addUser(x, document.getElementById("login2user").elements[1].value)
+      .then((res) => {
+        userid = res["userid"];
+      })
+      .catch((e) => console.log(e.message));
+      this.props.onLogin(userid);
       this.setState({ user:true })
     }
   };

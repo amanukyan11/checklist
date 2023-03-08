@@ -1,6 +1,6 @@
 import React, { Component, forwardRef, useImperativeHandle, useRef  } from 'react';
 import "./ExistingUser.css"
-import {getUserInfo, authenticateUser} from "../../connect"
+import {authenticateUser} from "../../connect"
 import { Navigate } from "react-router-dom";
 
 class existinguser extends Component {
@@ -14,7 +14,6 @@ class existinguser extends Component {
   submit = event => {
     event.preventDefault();
     var x = document.getElementById("loginuser").elements[0].value;
-    var promise = false;
     var userid = null
     authenticateUser(x, document.getElementById("loginuser").elements[1].value)
       .then((res) => {
