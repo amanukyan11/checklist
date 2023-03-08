@@ -14,25 +14,23 @@ class newuser extends Component {
   }
   submit2 = event => {
     event.preventDefault();
-    var x = document.getElementById("login2user").elements[0].value;
-    var userid = null;
-    authenticateUser(x, document.getElementById("login2user").elements[1].value)
+    const username = document.getElementById("login2user").elements[0].value;
+    const password = document.getElementById("login2user").elements[1].value;
+    addUser(username, password)
       .then((res) => {
-        userid = res["userid"];
+        const userid = res["userid"];
+        if(userid === null){
+          alert("That username already exists.");
+        }
+        else{
+          this.props.onLogin(userid);
+          this.state.user = true;
+        }
+      
+      
       })
       .catch((e) => console.log(e.message));
-    if(userid != null){
-      alert("That username/password already exists.");
-    }
-    else{
-      addUser(x, document.getElementById("login2user").elements[1].value)
-      .then((res) => {
-        userid = res["userid"];
-      })
-      .catch((e) => console.log(e.message));
-      this.props.onLogin(userid);
-      this.setState({ user:true })
-    }
+    
   };
 
   render() {

@@ -31,7 +31,7 @@ class login extends Component {
     return (
       <div>
         {this.showLogin && <Existinguser onLogin={this.onLogin}/>}
-        {this.showNewProfile && <Newuser/>}
+        {this.showNewProfile && <Newuser onLogin={this.onLogin}/>}
         <div style={{backgroundColor:"#A8C3BC", height: "40vh"}}>
           <div style={{width: "fit-content", margin:"auto"}}>
             <button onClick={this.switchProfile}>{this.buttonText}</button>
