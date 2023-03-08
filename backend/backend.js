@@ -40,9 +40,11 @@ app.get("/addUser/:email/:password", async (req, res) => {
 // checks if user exists based on email and password
 // returns JSON object with either null userid or nonnull
 app.get("/authenticateUser/:email/:password", async (req, res) => {
+	console.log("backend.js authenticateUser")
 	const email = req.params.email;
 	const password = req.params.password;
 	const response = await database.authenticateUser(email, password);
+	console.log(response);
 	const ret = JSON.stringify(response);
 	res.send(ret);
 });
