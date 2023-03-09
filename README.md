@@ -1,70 +1,54 @@
-# Getting Started with Create React App
+# Green Agenda: A Nature-Inspired To-Do List
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+**Green Agenda** is the latest tool to help people be more successful, featuring a Success Sapling to help users do more work! Every time certain objectives are completed, the Success Sapling receives care and grows. Complete checklists and use a Pomodoro Timer to be more productive, and share checklists to other users to collaborate on tasks. Use the app to make the Success Sapling flourish. **Green Agenda** is here to help users be more productive and thrive!
 
-## Available Scripts
+## Starting the Application
 
-In the project directory, you can run:
+### Cloning the Repository:
 
-### `npm start`
+In the terminal, run:
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+##### `git clone https://github.com/amanukyan11/checklist.git`
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+##### `cd checklist`
 
-### `npm test`
+### To Run the Frontend:
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+In the terminal, run:
 
-### `npm run build`
+##### `npm install`
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+##### `npm start`
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+The app is now accessible at
+http://localhost:3000.
+Navigate to this URL in the browser to interact with the app.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+### To Set Up the Backend:
 
-### `npm run eject`
+Follow the instructions in `AWS postgreSQL Instructions.txt` to set up a PostgreSQL database.
+Make sure to fill out the information in `./backend/client_info.js`.
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+### To Run the Backend after Setup:
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+In the terminal, run:
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+##### `node ./backend/backend.js`
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+The backend server is now being run on http://localhost:5000.
+Navigating to this URL in the browser will display a message to confirm that it is running properly.
 
-## Learn More
+In order to start the app, both the frontend and backend must be set up and running.
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+## Key Features
+* Sign up with email and password.
+* Create, edit, and save multiple checklists.
+* Mark checklists as complete and view a progress bar for each individual checklist.
+* Share checklists with other users by inputting their email.
+* Use a Pomodoro Timer to be more productive.
+* Grow a Success Sapling based on productivity.
 
-To learn React, check out the [React documentation](https://reactjs.org/).
 
-### Code Splitting
+## Credits
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app). It also uses [Amazon Web Services](https://aws.amazon.com/) to host the backend database.
