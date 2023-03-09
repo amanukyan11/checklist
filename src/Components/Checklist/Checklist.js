@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import "./Checklist.css"
+import "./Checklist.css";
+const connect = require(`../../connect.js`);
 
 function Checklist() {
   const [tasks, setTasks] = useState([]); //defines a variable tasks and a function setTask that updates using 'useState'
@@ -19,7 +20,22 @@ function Checklist() {
       setNumberOfTasks(numberOfTasks + 1);
       setIsSaved(true);
     }
-  }  
+  } 
+  
+  function shareList() {
+    let email = prompt("Enter the email of the person you wish to share with:");
+    if (email === null || email === "") {
+      alert("No email entered. List not shared");
+    }
+    else {
+      let alertMsg = 'Something went wrong. List not shared.'
+      connect.shareList(listID, email)
+        .then((res) => alertMsg = `List shared with ${email}.`)
+        .catch((e) => console.log(e.detail)); 
+      alert(alertMsg);
+      setIsSaved(true);
+    }
+  }
 
   const updateTask = (index, value) => { //takes in an index and value and creates a new array by copying the current 'task' array. Then newTasks is updated and set with the new index and value.
     const newTasks = [...tasks];
@@ -90,6 +106,9 @@ function Checklist() {
           incrementTasks();
           }}>Save</button>)}
       </form>
+      <div> 
+        <button onClick={()=>shareList()}>Share List</button>
+      </div>
       <div>
     <p>Number of tasks: {numberOfTasks} Number of completed tasks: {completedTasks}</p>
       </div>
