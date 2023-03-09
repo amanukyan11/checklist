@@ -32,7 +32,7 @@ function MainPage () {
         <div className="MainPage">
             <div className="container">
                 <div className="mainLeft">
-                    <Menu/>
+                    {userInfo.lists && <Menu lists={userInfo.lists}/>}
                 </div>
                 <div className="mainRight">
                     <h1 className="topRight">

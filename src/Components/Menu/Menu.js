@@ -1,8 +1,10 @@
 import "./Menu.css"
 import Checklist from "../Checklist/Checklist"
 import ProgressBar from '../ProgressBar/ProgressBar';
+import {useState} from 'react';
 //Test
-function Menu () {
+function Menu (props) {
+    const [lists, setLists] = useState(props.lists);
     return( 
     <div className="overall">
         <div className="menuSection">
