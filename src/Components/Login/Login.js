@@ -1,7 +1,6 @@
 import React, { Component, forwardRef, useImperativeHandle, useRef } from 'react';
 import Existinguser from '../ExistingUser/ExistingUser'
 import Newuser from '../NewUser/NewUser'
-import { createRoot } from "react-dom/client";
 import "./Login.css"
 
 class login extends Component {
@@ -30,8 +29,8 @@ class login extends Component {
   render() {
     return (
       <div>
-        {this.showLogin && <Existinguser/>}
-        {this.showNewProfile && <Newuser/>}
+        {this.showLogin && <Existinguser />}
+        {this.showNewProfile && <Newuser />}
         <div style={{backgroundColor:"#A8C3BC", height: "40vh"}}>
           <div style={{width: "fit-content", margin:"auto"}}>
             <button onClick={this.switchProfile}>{this.buttonText}</button>

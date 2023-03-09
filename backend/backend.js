@@ -7,6 +7,11 @@ const app = express();
 // import backend functions to manipulate PostgreSQL server
 const database = require('./database.js');
 
+// use cors for testing site on the same machine
+const cors = require('cors');
+app.use(cors())
+
+
 // Default message when visiting http://localhost:5000
 app.get("/", (req, res) => {
 	res.send('Server is up!');

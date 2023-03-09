@@ -1,15 +1,18 @@
 
 import "./App.css"
-import React, { Component } from "react";
+import React, { Component, useState } from "react";
 import MainPage from "../MainPage/MainPage";
 import Login from "../Login/Login"
+import { BrowserRouter, Routes, Route } from "react-router-dom";
  
 function App () {
+
   return (
     <div className = "App">
-      {/* TO SWITCH BETWEEN LOGIN AND MAIN PAGE JUST COMMENT OUT THE ONE YOU DONT WANT TO EDIT */}
-      <MainPage />
-      {/* <Login /> */} 
+      <Routes>
+        <Route path="/" element={<Login />} />
+        <Route path="/mainpage" element={<MainPage />} />
+      </Routes>
     </div>
   );
 }
