@@ -38,7 +38,7 @@ function MainPage () {
                     <h1 className="topRight">
                         <div className="titles">Success Sapling</div>
                     </h1>
-                    {userInfo.tree_prog && <Tree prog={userInfo.tree_prog}/>}
+                    {userInfo.tree_prog !== null && <Tree prog={userInfo.tree_prog}/>}
                     <h1 className="bottomRight">
                         <div className="titles">Pomodoro Timer</div>
                     </h1>
