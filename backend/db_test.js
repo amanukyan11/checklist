@@ -2,13 +2,8 @@ const Client = require('pg').Client;
 const database = require('./database.js');
 const initDB = require('../init/load_test_data.js');
 
-const clientInfo = ({
-	host: 'database.colb6htozgeu.us-west-1.rds.amazonaws.com',
-	port: 5432,
-	database: 'postgres',
-	user: 'postgres',
-	password: 'testing!!'
-});
+// information to connect to the pgsql server
+const clientInfo = require('./client_info')
 
 async function test() {
 	// initialize test data

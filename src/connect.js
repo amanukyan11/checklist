@@ -67,20 +67,3 @@ async function deleteUser(userID) {
 	const ret = JSON.parse(response);
 	return ret;
 }
-
-
-/*
-
-example code
-
-addUser('testing@blah.com', 'pass123!').then((val) => console.log(val));
-authenticateUser('testing@blah.com', 'pass123!').then((val) => console.log(val));
-authenticateUser('testing@blah.com', 'aaaaaa!').then((val) => console.log(val));
-getUserInfo('9b692ff7-c2f0-46a6-86fd-0316ca57bf9b').then((val) => console.log(val));
-getUserInfo('9b692ff7-c2f0-46a6-86fd-0316ca57bf9b').then((val) => console.log(val["lists"]));
-createChecklist('9b692ff7-c2f0-46a6-86fd-0316ca57bf9b', 'sendhelp', ["cat", "dog"], [true, false]).then((val) => console.log(val));
-shareList('1b5b6893-b777-4fd2-b5bd-2b367ca960fd', 'jiho@mail.com').then((val) => console.log(val));
-growTree('9b692ff7-c2f0-46a6-86fd-0316ca57bf9b', 99).then((val) => console.log(val));
-deleteUser('9b692ff7-c2f0-46a6-86fd-0316ca57bf9b').then((val) => console.log(val));
-
-*/

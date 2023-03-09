@@ -5,13 +5,7 @@ const R = require('ramda');
 module.exports = {checkUser, addUser};
 
 // information to connect to the pgsql server
-const clientInfo = ({
-	host: 'database.colb6htozgeu.us-west-1.rds.amazonaws.com',
-	port: 5432,
-	database: 'postgres',
-	user: 'postgres',
-	password: 'testing!!'
-});
+const clientInfo = require('./client_info')
 
 
 // adds a user to the database
@@ -58,18 +52,3 @@ async function checkUser(username, password) {
 		console.log(err.stack);
 	}
 }
-
-/*
-
-test code
-
-checkUser('aster', 'pass23!').then(val => console.log(val));
-
-addUser('aaaaaa', 'aaaaaa!').then(val => console.log(val));
-
-addUser('aaaaaa', 'aaaaaa!').then(val => console.log(val));
-
-*/
-
-
-

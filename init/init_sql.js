@@ -1,15 +1,11 @@
 const Client = require('pg').Client;
 module.exports = {initSQL};
+const clientInfo = require('../backend/client_info')
+
 
 // information to connect to the pgsql server
 async function initSQL() {
-	const client = new Client({
-		host: 'database.colb6htozgeu.us-west-1.rds.amazonaws.com',
-		port: 5432,
-		database: 'postgres',
-		user: 'postgres',
-		password: 'testing!!'
-	})
+	const client = new Client(clientInfo)
 	
 	// creates a simple table to test early front- and back- end connection
 	const txt = `CREATE extension IF NOT EXISTS "uuid-ossp";

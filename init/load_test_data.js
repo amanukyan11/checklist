@@ -1,13 +1,7 @@
 const Client = require('pg').Client;
 module.exports = {loadTestData};
 // information to connect to the pgsql server
-const clientInfo = ({
-	host: 'database.colb6htozgeu.us-west-1.rds.amazonaws.com',
-	port: 5432,
-	database: 'postgres',
-	user: 'postgres',
-	password: 'testing!!'
-});
+const clientInfo = require('../backend/client_info')
 
 async function loadTestData() {
 	const txt = ` 

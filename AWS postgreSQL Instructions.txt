@@ -1,8 +1,4 @@
-set up prelimnary backend connection
-figure out aws writeup
-event handlers??
-
-1. Sign up for an Amazon AWS account at https://aws.amazon.com/
+1. Sign up for an Amazon AWS account at https://aws.amazon.com/.
 
 2. Click on the Services icon in the upper left corner, then click on Database, then RDS.
 
@@ -35,7 +31,7 @@ The database has been created. It should automatically start running.
 
 11. Navigate back to the database page.
 
-12. Fill out the information in init/init_sql.js with the following information once it is created:
+12. Fill out the information in backend/client_info.js with the following information once it is created:
 
 	const client = db({
 		host: 'url',
@@ -52,33 +48,6 @@ The database has been created. It should automatically start running.
 	Replace name with the database name created.
 
 13. from terminal:
-npm install pg
 npm run init-db
 
 14. PostgreSQL database has been set up.
-
-
-TO LOAD SAMPLE DATA (***LOADING TEST DATA WILL ERASE ALL EXISTING DATA):
-15. Update init/load_test_data.js with the following information:
-
-	const client = db({
-		host: 'url',
-		port: port,
-		database: 'postgres',
-		user: 'user',
-		password: 'pass'
-	})
-
-	Replace url with the Endpoint url.
-	Replace port with the Port.
-	Replace user with the username created when signing up.
-	Replace pass with the password created when signing up.
-	Replace name with the database name created.
-
-16. In terminal:
-npm run load-test-data
-
-**to connect to AWS with command line
-1. install postgresql 
-2. psql -h database.colb6htozgeu.us-west-1.rds.amazonaws.com -U postgres -d postgres -W
-3. when prompted password is testing!!
