@@ -52,3 +52,5 @@ In order to start the app, both the frontend and backend must be set up and runn
 ## Credits
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app). It also uses [Amazon Web Services](https://aws.amazon.com/) to host the backend database.
+
+Progress bar code adapted from https://dev.to/ramonak/react-how-to-create-a-custom-progress-bar-component-in-5-minutes-2lcl. 
