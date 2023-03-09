@@ -9,7 +9,7 @@ class newuser extends Component {
     super( props );
     this.submit2 = this.submit2.bind(this);
     this.state = {
-      user:false
+      userid:null
     };
   }
   submit2 = event => {
@@ -18,13 +18,12 @@ class newuser extends Component {
     const password = document.getElementById("login2user").elements[1].value;
     addUser(username, password)
       .then((res) => {
-        const userid = res["userid"];
-        if(userid === null){
+        const id = res["userid"];
+        if(id === null){
           alert("That username already exists.");
         }
         else{
-          this.props.onLogin(userid);
-          this.state.user = true;
+          this.setState({userid: id});
         }
       
       
@@ -51,7 +50,7 @@ class newuser extends Component {
                 <br/>
                 <input type="submit"></input>
             </form>
-            {this.state.user && <Navigate to="/mainpage" />}
+            {this.state.userid && <Navigate to="/mainpage" state={this.state} />}
             <br/>
       </div>
       </div>

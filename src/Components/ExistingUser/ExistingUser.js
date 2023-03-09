@@ -8,7 +8,7 @@ class existinguser extends Component {
     super( props );
     this.submit = this.submit.bind(this);
     this.state = {
-      user:false
+      userid: null
     };
   }
   submit = event => {
@@ -21,8 +21,7 @@ class existinguser extends Component {
           alert("Wrong password. Please try again!");
         }
         else {
-          this.props.onLogin(res["userid"]);
-          this.state.user = true;
+          this.setState({userid: res["userid"]});
         }
       
       })
@@ -47,7 +46,7 @@ class existinguser extends Component {
                 <br/>
                 <input type="submit"></input>
             </form>
-            {this.state.user && <Navigate to="/mainpage" />}
+            {this.state.userid && <Navigate to="/mainpage" state={this.state}/>}
             <br/>
       </div>
       </div>

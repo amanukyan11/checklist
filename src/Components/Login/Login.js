@@ -11,7 +11,6 @@ class login extends Component {
       this.increment=0
       this.buttonText= "Create New Profile"
       this.switchProfile = this.switchProfile.bind(this);
-      this.onLogin = this.props.onLogin
    }
 
    switchProfile = () => {
@@ -30,8 +29,8 @@ class login extends Component {
   render() {
     return (
       <div>
-        {this.showLogin && <Existinguser onLogin={this.onLogin}/>}
-        {this.showNewProfile && <Newuser onLogin={this.onLogin}/>}
+        {this.showLogin && <Existinguser />}
+        {this.showNewProfile && <Newuser />}
         <div style={{backgroundColor:"#A8C3BC", height: "40vh"}}>
           <div style={{width: "fit-content", margin:"auto"}}>
             <button onClick={this.switchProfile}>{this.buttonText}</button>
