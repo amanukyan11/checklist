@@ -3,7 +3,7 @@ import "./MainPage.css"
 import Timer from '../Timer/Timer';
 import Tree from '../Tree/Tree';
 import Menu from '../Menu/Menu';
-import {useLocation} from 'react-router-dom';
+import {useLocation, Navigate} from 'react-router-dom';
 const connect = require('../../connect');
 
 function MainPage () {
@@ -14,6 +14,7 @@ function MainPage () {
         tree_prog: null,
         lists: null
     });
+    const [logout, setLogout] = useState(false);
 
     const onLogin = (id) => {
         connect.getUserInfo(id)
@@ -27,6 +28,10 @@ function MainPage () {
         setUserId(location.state.userid);
         onLogin(location.state.userid);
     });
+
+    const onLogout = () => {
+        setLogout(true);
+    }
 
     return (
         <div className="MainPage">
@@ -43,6 +48,11 @@ function MainPage () {
                         <div className="titles">Pomodoro Timer</div>
                     </h1>
                     <Timer/>
+                    <br/>
+                    <div>
+                        <button onClick={onLogout}>Logout</button>
+                        {logout && <Navigate to="/"/>}
+                    </div>
                 </div>
             </div>
         </div>
