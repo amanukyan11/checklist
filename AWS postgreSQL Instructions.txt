@@ -45,7 +45,8 @@ The database has been created. It should automatically start running.
 	Replace port with the Port.
 	Replace user with the username created when signing up.
 	Replace pass with the password created when signing up.
-	Replace name with the database name created.
+	Do not change the database parameter because the database identifier is not the same as the database parameter.
+	The default database parameter is 'postgres.'
 
 13. from terminal:
 npm run init-db
