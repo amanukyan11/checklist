@@ -4,9 +4,10 @@ import ProgressBar from '../ProgressBar/ProgressBar';
 import {useState} from 'react';
 //Test
 function Menu (props) {
-    const [lists, setLists] = useState(props.lists.map(list => ({ checklist: list, value: 0 })));
+    const [lists, setLists] = useState(props.lists); //lists is a nested array, every index corresponds to a checklist = [checklist, 0], [checklist, 1]...
     const [currIndex, setCurrIndex] = useState(0);
     const [isSelected, setIsSelected] = useState(false);
+    const [curList, setCurList] = useState(null);
 
     const addList = () => {
         setLists([...lists, '']);
@@ -27,18 +28,43 @@ function Menu (props) {
             return { ...list, isSelected: false };
           }
         }));
+        console.log(lists[currIndex]);
+        const list = lists[currIndex];
+        const content = list["content"];
+        const checked = list["checked"];
+        let newNumTasks = null;
+        try {
+            newNumTasks = content.length;
+        }
+        catch(err) {
+            newNumTasks = 0;
+        }
+        console.log(newNumTasks);
+        let newTasks = [];
+        let newCompletedTasks = 0;
+        for (let i = 0; i < newNumTasks; i++) {
+          newTasks.push({ "text": content[i], "isCompleted": checked[i] });
+          if (checked[i] === true) {
+            newCompletedTasks += 1;
+          }
+        }
+        setCurList({
+            "tasks": newTasks,
+            "numTasks": newNumTasks,
+            "completedTasks": newCompletedTasks
+        });
       };
-    
+
     const handleSubmit = (event) => { //This is the 'Add Task' button's functionality.
         event.preventDefault();
         addList();
     };
-      
+
     //checklist accept props, 
 
     //List 1 (0) --> checklist --> lists array (0)
     //List 2 (1) --> checklsit --> lists array (1)
-    
+
     //add a delete button, and make the selected list have a "o"
     return( 
     <div className="overall">
@@ -77,7 +103,7 @@ function Menu (props) {
             <h1 className="centerTop">
                 <div className="titles">Checklist</div>
             </h1>
-            <Checklist list={lists[currIndex]}/>
+            {curList && <Checklist list={curList}/>}
             <footer className="centerBottom">
                 <ProgressBar/>
             </footer>

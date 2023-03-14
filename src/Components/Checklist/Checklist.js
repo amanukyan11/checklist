@@ -1,11 +1,11 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import "./Checklist.css";
 const connect = require(`../../connect.js`);
 
-function Checklist() {
-  const [tasks, setTasks] = useState([]); //defines a variable tasks and a function setTask that updates using 'useState'
-  const [numberOfTasks, setNumberOfTasks] = useState(0); //used to increment the number of tasks that have been created.
-  const [completedTasks, setCompleteTasks] = useState(0);
+function Checklist(props) {
+	const [tasks, setTasks] = useState(props.list.tasks); //defines a variable tasks and a function setTask that updates using 'useState'
+  const [numberOfTasks, setNumberOfTasks] = useState(props.list.numTasks); //used to increment the number of tasks that have been created.
+  const [completedTasks, setCompleteTasks] = useState(props.list.completedTasks);
   const [isTextBoxActive, setTextBoxActive] = useState(false); 
   const [isSaved, setIsSaved] = useState(true); 
 
@@ -29,7 +29,7 @@ function Checklist() {
     }
     else {
       let alertMsg = 'Something went wrong. List not shared.'
-      connect.shareList(listID, email)
+      connect.shareList(props.list["listid"], email)
         .then((res) => alertMsg = `List shared with ${email}.`)
         .catch((e) => console.log(e.detail)); 
       alert(alertMsg);
