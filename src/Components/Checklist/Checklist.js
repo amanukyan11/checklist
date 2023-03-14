@@ -9,6 +9,12 @@ function Checklist(props) {
   const [isTextBoxActive, setTextBoxActive] = useState(false); 
   const [isSaved, setIsSaved] = useState(true); 
 
+  useEffect(() => {
+    setTasks(props.list.tasks);
+    setNumberOfTasks(props.list.numTasks);
+    setCompleteTasks(props.list.completedTasks);
+  })
+
   const addTask = () => {   //adds a new task to the 'task' array and uses setTasks to update the 'task'
     //TODO #1: check if the current task value is not empty
     //TODO #2: not show the 'Add task' button until 'save' button is clicked

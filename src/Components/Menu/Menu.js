@@ -2,11 +2,12 @@ import "./Menu.css"
 import Checklist from "../Checklist/Checklist"
 import ProgressBar from '../ProgressBar/ProgressBar';
 import {useState} from 'react';
-
+const connect = require("../../connect");
 function Menu (props) {
     const [lists, setLists] = useState(props.lists); //lists is a nested array, every index corresponds to a checklist = [checklist, 0], [checklist, 1]...
     const [currIndex, setCurrIndex] = useState(0);
     const [completed, setCompleted] = useState(0);
+    const [curList, setCurList] = useState(null);
 
     function updateCompleted(newCompleted) {
         if(isNaN(newCompleted)) {
@@ -15,13 +16,27 @@ function Menu (props) {
             setCompleted(newCompleted);
         }
     }
-    const [curList, setCurList] = useState(null);
 
-    const addList = () => {
-        setLists([...lists, '']);
+    const addList = (index) => {
+        let newListId = null;
+        const listName = `List ${index}`
+        connect.createChecklist(props.userid, listName, [], [])
+            .then((res) => {
+                console.log(res);
+                newListId = res["listid"];
+            } )
+            .catch((e) => console.log(e.message))
+        const newList = {
+            listid: newListId,
+            name: listName,
+            content: [],
+            checked: [],
+            isSelected: false
+        }
+        setLists([...lists, newList]);
     }
-
-    const handleSubmit = (event) => { //This is the 'New List' button's functionality.
+    
+    const handleSubmit = (event) => { //This is the 'Add Task' button's functionality.
         event.preventDefault();
         addList();
     };
@@ -42,8 +57,8 @@ function Menu (props) {
             return { ...list, isSelected: false };
           }
         }));
-        console.log(lists[currIndex]);
-        const list = lists[currIndex];
+        console.log(lists[index]);
+        const list = lists[index];
         const content = list["content"];
         const checked = list["checked"];
         let newNumTasks = null;
