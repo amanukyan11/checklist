@@ -25,8 +25,11 @@ function MainPage () {
     }
 
     useEffect(() => {
-        setUserId(location.state.userid);
-        onLogin(location.state.userid);
+        if (location.state.userid !== userid){
+            setUserId(location.state.userid);
+            onLogin(location.state.userid);
+        }
+        
     });
 
     const onLogout = () => {
@@ -37,27 +40,27 @@ function MainPage () {
         <div className="MainPage">
             <div className="container">
                 <div className="mainLeft">
-                    {userInfo.lists && <Menu lists={userInfo.lists}/>}
+                    {userInfo.lists && <Menu lists={userInfo.lists} userid={userid}/>}
                 </div>
                 <div className="mainRight">
                     <div className='right-half right-top'>
                         <div className='half-wrapper'>
-                            <h1 className="topRight">
-                                <div className="titles">Success Sapling</div>
-                            </h1>
-                            {userInfo.tree_prog !== null && <Tree prog={userInfo.tree_prog}/>}
+                    <h1 className="topRight">
+                        <div className="titles">Success Sapling</div>
+                    </h1>
+                    {userInfo.tree_prog !== null && <Tree prog={userInfo.tree_prog}/>}
                         </div>
                     </div>
                     <div className='right-half right-bottom'>
                         <div className='half-wrapper'>
-                            <h1 className="bottomRight">
-                                <div className="titles">Pomodoro Timer</div>
-                            </h1>
-                            <Timer/>
-                            <br/>
-                            <div>
-                                <button onClick={onLogout}>Logout</button>
-                                {logout && <Navigate to="/"/>}
+                    <h1 className="bottomRight">
+                        <div className="titles">Pomodoro Timer</div>
+                    </h1>
+                    <Timer/>
+                    <br/>
+                    <div>
+                        <button onClick={onLogout}>Logout</button>
+                        {logout && <Navigate to="/"/>}
                             </div>
                         </div>
                     </div>

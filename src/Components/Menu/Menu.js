@@ -9,6 +9,21 @@ function Menu (props) {
     const [completed, setCompleted] = useState(0);
     const [curList, setCurList] = useState(null);
 
+    function onListUpdate(id, name, content, checked) {
+        for (let i = 0; i < lists.length; i++) {
+            if (lists[i].listid === id) {
+                lists[i] = {
+                    listid: id,
+                    name: name,
+                    content: content,
+                    checked: checked,
+                    isSelected: lists[i].isSelected
+                }
+                break;
+            }
+        }
+    }
+
     function updateCompleted(newCompleted) {
         if(isNaN(newCompleted)) {
             setCompleted(0);
@@ -24,23 +39,17 @@ function Menu (props) {
             .then((res) => {
                 console.log(res);
                 newListId = res["listid"];
+                const newList = {
+                    listid: newListId,
+                    name: listName,
+                    content: [],
+                    checked: [],
+                    isSelected: false
+                }
+                setLists([...lists, newList]);
             } )
             .catch((e) => console.log(e.message))
-        const newList = {
-            listid: newListId,
-            name: listName,
-            content: [],
-            checked: [],
-            isSelected: false
-        }
-        setLists([...lists, newList]);
     }
-    
-    const handleSubmit = (event) => { //This is the 'Add Task' button's functionality.
-        event.preventDefault();
-        addList();
-    };
-
     
     const removeList = (index) => {//this removes a list from the menu
         const newLists = [...lists];
@@ -78,12 +87,13 @@ function Menu (props) {
           }
         }
         setCurList({
+            "listid": list.listid,
+            "name": list.name,
             "tasks": newTasks,
             "numTasks": newNumTasks,
             "completedTasks": newCompletedTasks
         });
       };
-    
       const handleNameChange = (index, newName) => {
         setLists(prevLists => prevLists.map((list, i) => {
           if (i === index) {
@@ -98,7 +108,7 @@ function Menu (props) {
         event.preventDefault();
         // addList();
         addList(lists.length);
-    };
+    };    
 
     return( 
     <div className="overall">
@@ -107,21 +117,21 @@ function Menu (props) {
                 <div className="titles">Menu</div>
             </h1>            
             <div className="menuList">
-            {lists.map((list, index) => (
-                <div className="lists" key={index}>
-                    <button className="removeList" onClick={() => removeList(index)}>X</button>
-                    <input
-                        className="listNumber"
-                        type="text"
+                {lists.map((list, index) => (
+                    <div className="lists" key={index}>
+                      <button className="removeList" onClick={() => removeList(index)}>X</button>
+                      <input 
+                        className="listNumber" 
+                        type="text" 
                         value={list.name}
                         onChange={(e) => handleNameChange(index, e.target.value)}
-                    />
-                    {list.isSelected ? (
-                    <button className="selectedButton" onClick={() => handleListClick(index)}>•</button>
+                      />
+                      {list.isSelected ? (
+                        <button className="selectedButton" onClick={() => handleListClick(index)}>•</button>
                     ) : (
-                    <button className="emptyButton" onClick={() => handleListClick(index)}>&shy;</button>
-                    )}
-                </div>
+                            <button className="emptyButton" onClick={() => handleListClick(index)}>&shy;</button>
+                        )}
+                    </div>
                 ))}
                 <div>
                     <form onSubmit={handleSubmit}>
@@ -137,7 +147,7 @@ function Menu (props) {
             <h1 className="centerTop">
                 <div className="titles">Checklist</div>
             </h1>
-            {curList && <Checklist list={curList} completed={completed} updateCompleted={updateCompleted}/>}
+            {curList && <Checklist list={curList} completed={completed} updateCompleted={updateCompleted} listUpdate={onListUpdate}/>}
             <footer className="centerBottom">
                 <ProgressBar completed={completed}/>
             </footer>

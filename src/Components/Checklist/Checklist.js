@@ -1,19 +1,53 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import "./Checklist.css";
 const connect = require(`../../connect.js`);
 
 function Checklist(props) {
+  const [listid, setListid] = useState(props.list.listid);
+  const [listName, setListName] = useState(props.list.name);
 	const [tasks, setTasks] = useState(props.list.tasks); //defines a variable tasks and a function setTask that updates using 'useState'
   const [numberOfTasks, setNumberOfTasks] = useState(props.list.numTasks); //used to increment the number of tasks that have been created.
   const [completedTasks, setCompleteTasks] = useState(props.list.completedTasks);
   const [isTextBoxActive, setTextBoxActive] = useState(false); 
-  const [isSaved, setIsSaved] = useState(true);
+  const [isSaved, setIsSaved] = useState(true); 
+  const prevID = usePrevious(listid);
+  const prevTasks = usePrevious(tasks);
+
+  function usePrevious(value) {
+    const ref = useRef();
+    useEffect(() => {
+      ref.current = value;
+    });
+    return ref.current;
+  }
 
   useEffect(() => {
-    setTasks(props.list.tasks);
-    setNumberOfTasks(props.list.numTasks);
-    setCompleteTasks(props.list.completedTasks);
+    if (props.list.listid !== listid){
+      setListid(props.list.listid);
+      setListName(props.list.name);
+      setTasks(props.list.tasks);
+      setNumberOfTasks(props.list.numTasks);
+      setCompleteTasks(props.list.completedTasks);
+    }
+    else if (isSaved && !isTextBoxActive && prevID === listid && JSON.stringify(prevTasks) !== JSON.stringify(tasks)){
+      updateDB();
+    }
   })
+
+  function updateDB() {
+    const content = [];
+    const checked = [];
+    for (let i = 0; i < tasks.length; i++) {
+      content.push(tasks[i].text);
+      checked.push(tasks[i].isCompleted);
+    }
+    const vals = [listid, listName, content, checked]
+    props.listUpdate(...vals);
+    connect.updateChecklist(...vals)
+      .then((res) => console.log(res))
+      .catch((e) => console.log(e.message))
+      .finally(() => console.log("Checklist updated"));
+  }
 
   const addTask = () => {   //adds a new task to the 'task' array and uses setTasks to update the 'task'
     //TODO #1: check if the current task value is not empty
@@ -34,11 +68,18 @@ function Checklist(props) {
       alert("No email entered. List not shared");
     }
     else {
-      let alertMsg = 'Something went wrong. List not shared.'
-      connect.shareList(props.list["listid"], email)
-        .then((res) => alertMsg = `List shared with ${email}.`)
-        .catch((e) => console.log(e.detail)); 
-      alert(alertMsg);
+      const badMsg = 'Something went wrong. List not shared.'
+      const goodMsg = `List shared with ${email}.`
+      connect.shareList(listid, email)
+        .then((res) => {
+          if (res["status"] === 1){
+            alert(badMsg);
+          }  
+          else{
+            alert(goodMsg);
+          }
+        })
+        .catch((e) => alert(badMsg)); 
       setIsSaved(true);
     }
   }
@@ -67,13 +108,16 @@ function Checklist(props) {
   const handleSubmit = (event) => { //This is the 'Add Task' button's functionality.
     event.preventDefault();
     if(isSaved){
-      addTask();
       setIsSaved(false);
+      addTask();
     }
   };
 
   const crossOutTask = (index) => {
     const taskText = tasks[index].text;
+    if (isTextBoxActive){
+      return;
+    }
     if (taskText) {
       const newTasks = [...tasks];
       if (!newTasks[index].isCompleted) {
@@ -96,7 +140,7 @@ function Checklist(props) {
           <input
             type="text"
             value={task.text}
-            onChange={(event) => updateTask(index, {text: event.target.value, isCompleted: false})}
+            onChange={(event) => updateTask(index, {text: event.target.value, isCompleted: task.isCompleted})}
             onFocus={() => setTextBoxActive(true)}
           />
           {task.isCompleted ? (
@@ -112,6 +156,7 @@ function Checklist(props) {
         <button className="saveButton" onClick={() => {
           setTextBoxActive(false)
           incrementTasks();
+          updateDB();
           }}>Save</button>)}
       </form>
       <div> 
