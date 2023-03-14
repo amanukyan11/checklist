@@ -2,7 +2,7 @@ import "./Menu.css"
 import Checklist from "../Checklist/Checklist"
 import ProgressBar from '../ProgressBar/ProgressBar';
 import {useState} from 'react';
-//Test
+
 function Menu (props) {
     const [lists, setLists] = useState(props.lists); //lists is a nested array, every index corresponds to a checklist = [checklist, 0], [checklist, 1]...
     const [currIndex, setCurrIndex] = useState(0);
@@ -15,7 +15,6 @@ function Menu (props) {
             setCompleted(newCompleted);
         }
     }
-    const [isSelected, setIsSelected] = useState(false);
     const [curList, setCurList] = useState(null);
 
     const addList = () => {
@@ -70,12 +69,6 @@ function Menu (props) {
         });
       };
 
-    //checklist accept props, 
-
-    //List 1 (0) --> checklist --> lists array (0)
-    //List 2 (1) --> checklsit --> lists array (1)
-
-    //add a delete button, and make the selected list have a "o"
     return( 
     <div className="overall">
         <div className="menuSection">
