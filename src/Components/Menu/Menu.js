@@ -6,12 +6,19 @@ import {useState} from 'react';
 function Menu (props) {
     const [lists, setLists] = useState(props.lists); 
     const [currIndex, setCurrIndex] = useState(0);
+    const [completed, setCompleted] = useState(0);
+
+    function updateCompleted(newCompleted) {
+        if(isNaN(newCompleted)) {
+            setCompleted(0);
+        }else {
+            setCompleted(newCompleted);
+        }
+    }
 
     const addList = () => {
         setLists([...lists, '']);
     }
-    
-    //const removeList() {} this is to be done later
 
     const handleSubmit = (event) => { //This is the 'New List' button's functionality.
         event.preventDefault();
@@ -36,6 +43,7 @@ function Menu (props) {
                         <button className="addList" type="submit">New List</button>
                         <button>{currIndex}</button>
                     </form>
+                    <p>Completed: {completed}</p>
                 </div>
             </div>
         </div>
@@ -44,11 +52,13 @@ function Menu (props) {
             <h1 className="centerTop">
                 <div className="titles">Checklist</div>
             </h1>
-            <Checklist list={lists[currIndex]}/>
+            <Checklist list={lists[currIndex]} completed={completed} updateCompleted={updateCompleted}/>
             <footer className="centerBottom">
-                <ProgressBar/>
+                <ProgressBar completed={completed}/>
             </footer>
         </div>
     </div>
     )
 }
+
+export default Menu;
