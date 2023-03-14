@@ -40,18 +40,26 @@ function MainPage () {
                     {userInfo.lists && <Menu lists={userInfo.lists}/>}
                 </div>
                 <div className="mainRight">
-                    <h1 className="topRight">
-                        <div className="titles">Success Sapling</div>
-                    </h1>
-                    {userInfo.tree_prog !== null && <Tree prog={userInfo.tree_prog}/>}
-                    <h1 className="bottomRight">
-                        <div className="titles">Pomodoro Timer</div>
-                    </h1>
-                    <Timer/>
-                    <br/>
-                    <div>
-                        <button onClick={onLogout}>Logout</button>
-                        {logout && <Navigate to="/"/>}
+                    <div className='right-half right-top'>
+                        <div className='half-wrapper'>
+                            <h1 className="topRight">
+                                <div className="titles">Success Sapling</div>
+                            </h1>
+                            {userInfo.tree_prog !== null && <Tree prog={userInfo.tree_prog}/>}
+                        </div>
+                    </div>
+                    <div className='right-half right-bottom'>
+                        <div className='half-wrapper'>
+                            <h1 className="bottomRight">
+                                <div className="titles">Pomodoro Timer</div>
+                            </h1>
+                            <Timer/>
+                            <br/>
+                            <div>
+                                <button onClick={onLogout}>Logout</button>
+                                {logout && <Navigate to="/"/>}
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>

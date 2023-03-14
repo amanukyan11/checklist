@@ -83,6 +83,22 @@ function Menu (props) {
             "completedTasks": newCompletedTasks
         });
       };
+    
+      const handleNameChange = (index, newName) => {
+        setLists(prevLists => prevLists.map((list, i) => {
+          if (i === index) {
+            return { ...list, name: newName };
+          } else {
+            return list;
+          }
+        }));
+      }
+
+    const handleSubmit = (event) => { //This is the 'Add Task' button's functionality.
+        event.preventDefault();
+        // addList();
+        addList(lists.length);
+    };
 
     return( 
     <div className="overall">
@@ -91,22 +107,21 @@ function Menu (props) {
                 <div className="titles">Menu</div>
             </h1>            
             <div className="menuList">
-                {lists.map((list, index) => (
-                    <div className="lists" key={index}>
-                      <button className="removeList" onClick={() => removeList(index)}>X</button>
-                      {/* <button className="listNumber" onClick={() => handleListClick(index)}>List {index + 1}</button> */}
-                      <input 
-                        className="listNumber" 
-                        type="text" 
-                        value={`List ${index + 1}`} 
-                        onChange={() => setCurrIndex(index)} 
-                      />
-                      {list.isSelected ? (
-                        <button className="selectedButton" onClick={() => handleListClick(index)}>•</button>
+            {lists.map((list, index) => (
+                <div className="lists" key={index}>
+                    <button className="removeList" onClick={() => removeList(index)}>X</button>
+                    <input
+                        className="listNumber"
+                        type="text"
+                        value={list.name}
+                        onChange={(e) => handleNameChange(index, e.target.value)}
+                    />
+                    {list.isSelected ? (
+                    <button className="selectedButton" onClick={() => handleListClick(index)}>•</button>
                     ) : (
-                            <button className="emptyButton" onClick={() => handleListClick(index)}>&shy;</button>
-                        )}
-                    </div>
+                    <button className="emptyButton" onClick={() => handleListClick(index)}>&shy;</button>
+                    )}
+                </div>
                 ))}
                 <div>
                     <form onSubmit={handleSubmit}>

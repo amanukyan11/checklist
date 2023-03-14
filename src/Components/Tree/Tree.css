@@ -1,5 +1,5 @@
 .Tree {
-    flex: 10 1 50%;
-    text-align: center;
-    border-bottom: solid; 
+  display: flex;
+  justify-content: center;
+  transform: translateY(70px);
   }

@@ -52,7 +52,7 @@
     flex-direction: column;
     justify-content: center; /* centers content vertically */
     align-items: center; /* centers content horizontally */
-    height: 100vh; /* or any other height */
+    /* height: 100vh; /* or any other height */
     text-align: center;
   }
 

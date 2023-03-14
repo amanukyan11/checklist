@@ -7,7 +7,7 @@ function Checklist(props) {
   const [numberOfTasks, setNumberOfTasks] = useState(props.list.numTasks); //used to increment the number of tasks that have been created.
   const [completedTasks, setCompleteTasks] = useState(props.list.completedTasks);
   const [isTextBoxActive, setTextBoxActive] = useState(false); 
-  const [isSaved, setIsSaved] = useState(true); 
+  const [isSaved, setIsSaved] = useState(true);
 
   useEffect(() => {
     setTasks(props.list.tasks);
