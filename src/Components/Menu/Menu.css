@@ -14,6 +14,12 @@
     text-align: center;
   }
 
+
+.lists {
+  flex-direction: row;
+  display: flex;
+}
+
 .listNumber {
   width: 100%;
 }
@@ -53,4 +59,18 @@
   display: flex;
   flex-direction: column;
   margin-top: auto;
+}
+
+.selectedButton {
+  font-size:1.5ch;
+  width: 24px;
+}
+
+.removeList {
+  color: white;
+  background-color: red;
+}
+
+.listNumber {
+  text-align: center;
 }
