@@ -19,6 +19,7 @@
     background-color: #c4977d;
     padding: 15px;
     border-radius: 10px;
+    font-family: 'Corben', Georgia, Times, serif;
   }
 
   
@@ -49,4 +50,32 @@
     width: 60%;
     height: auto;
     display: block;
+  }
+
+  h1 {
+    text-shadow: 1px 1px 1px #ccc;
+  }
+
+  div {
+    font-family: 'Nobile', Helvetica, Arial, sans-serif;
+  }
+
+  .button {
+    background-color: #808080;
+    border: 0;
+    color: #fefbef;
+    font-family: 'Open Sans', sans-serif;
+    font-weight: 600;
+    margin-top: 0.5rem;
+    padding: 5px;
+    border-radius: 5px;
+  }
+  
+  .button:hover {
+    cursor: pointer;
+    background-color: #505050;
+  }
+
+  .button2:hover {
+    cursor: pointer;
   }

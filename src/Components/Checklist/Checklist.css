@@ -9,7 +9,7 @@
     text-decoration: line-through;
   }
 
-  .deleteButton {
+  /* .deleteButton {
     color: white;
     background-color: red;
   }
@@ -23,4 +23,47 @@
   .emptyButton {
     font-size:1.5ch;
     width: 24px;
+  } */
+
+  .checklistTask {
+    flex-direction: row;
+    display: flex;
+    margin: 3px;
+    border: solid;
+    border-width: 2px;
+    border-radius: 4px;
+    width: 18.85%;
+  }
+  
+  .taskTextBox {
+    background-color: #d8bbaa;
+    border: none;
+  }
+
+  .deleteButton {
+    color: white;
+    background-color: red;
+    border-right: solid black;
+    border-width: 2px;
+    border: none;
+  }
+
+  .checkButton {
+    font-size:1.3ch;
+    color: white;
+    background-color: green;
+    border-left: solid black;
+    border-width: 2px;
+    border: none;
+    border-radius: 3px;
+  }
+  
+  .emptyButton {
+    font-size:1.5ch;
+    width: 24px;
+    border-left: solid black;
+    background-color: #808080;
+    border-width: 2px;
+    border: none;
+    border-radius: 3px;
   }

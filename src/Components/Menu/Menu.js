@@ -8,17 +8,24 @@ function Menu (props) {
     const [currIndex, setCurrIndex] = useState(0);
     const [completed, setCompleted] = useState(0);
     const [curList, setCurList] = useState(null);
+    const [tasks, setTasks] = useState([])
 
     function onListUpdate(id, name, content, checked) {
         for (let i = 0; i < lists.length; i++) {
             if (lists[i].listid === id) {
-                lists[i] = {
-                    listid: id,
-                    name: name,
-                    content: content,
-                    checked: checked,
-                    isSelected: lists[i].isSelected
-                }
+                setLists(oldList => {
+                    
+                    const updatedList = [...oldList]
+                    updatedList[i] = {
+                        listid: id,
+                        name: name,
+                        content: content,
+                        checked: checked,
+                        isSelected: lists[i].isSelected
+                    }
+
+                    return updatedList
+                })
                 break;
             }
         }
@@ -33,6 +40,7 @@ function Menu (props) {
     }
 
     const addList = (index) => {
+
         let newListId = null;
         const listName = `List ${index}`
         connect.createChecklist(props.userid, listName, [], [])
@@ -93,6 +101,7 @@ function Menu (props) {
             "numTasks": newNumTasks,
             "completedTasks": newCompletedTasks
         });
+        setTasks(newTasks)
       };
       const handleNameChange = (index, newName) => {
         setLists(prevLists => prevLists.map((list, i) => {
@@ -106,9 +115,47 @@ function Menu (props) {
 
     const handleSubmit = (event) => { //This is the 'Add Task' button's functionality.
         event.preventDefault();
-        // addList();
         addList(lists.length);
     };    
+    
+    //Grow Tree
+    //remove every completeded task
+    //pass the number of Compelted tasks to the tree
+    const removeCompletedTask = () =>  {
+        // console.log(lists);
+        
+        props.updateTreeEXP(curList.completedTasks)
+
+        const id = curList.listid;
+        const name = curList.name;
+        const content = [];
+        const checked = [];
+        const newTasks = []
+
+        curList.tasks.forEach((element) => {
+            console.log(element)
+            if (!element.isCompleted) {
+                content.push(element.text);
+                checked.push(element.isCompleted);
+                newTasks.push({
+                    text: element.text,
+                    isCompleted: element.isCompleted
+                })
+            }
+        })
+
+
+        onListUpdate(id, name, content, checked);
+        setCurList({
+            "listid": id,
+            "name": name,
+            "tasks": newTasks,
+            "numTasks": newTasks.length,
+            "completedTasks": 0
+        });
+        setTasks(newTasks)
+    }
+
 
     return( 
     <div className="overall">
@@ -119,7 +166,7 @@ function Menu (props) {
             <div className="menuList">
                 {lists.map((list, index) => (
                     <div className="lists" key={index}>
-                      <button className="removeList" onClick={() => removeList(index)}>X</button>
+                      <button className="removeList button2" onClick={() => removeList(index)}>X</button>
                       <input 
                         className="listNumber" 
                         type="text" 
@@ -127,16 +174,15 @@ function Menu (props) {
                         onChange={(e) => handleNameChange(index, e.target.value)}
                       />
                       {list.isSelected ? (
-                        <button className="selectedButton" onClick={() => handleListClick(index)}>•</button>
+                        <button className="selectedButton button2" onClick={() => handleListClick(index)}>•</button>
                     ) : (
-                            <button className="emptyButton" onClick={() => handleListClick(index)}>&shy;</button>
+                            <button className="emptyButton button2" onClick={() => handleListClick(index)}>&shy;</button>
                         )}
                     </div>
                 ))}
                 <div>
                     <form onSubmit={handleSubmit}>
-                        <button className="addList" type="submit">New List</button>
-                        <button>{currIndex}</button>
+                        <button className="addList button" type="submit">New List</button>
                     </form>
                     <p>Completed: {completed}</p>
                 </div>
@@ -146,8 +192,9 @@ function Menu (props) {
         <div className="checklistSection"> 
             <h1 className="centerTop">
                 <div className="titles">Checklist</div>
+                <button className="growTreeButton button" onClick={removeCompletedTask}>Grow Tree</button>
             </h1>
-            {curList && <Checklist list={curList} completed={completed} updateCompleted={updateCompleted} listUpdate={onListUpdate}/>}
+            {curList && <Checklist list={curList} tasks={tasks} setTasks={setTasks} completed={completed} updateCompleted={updateCompleted} listUpdate={onListUpdate}/>}
             <footer className="centerBottom">
                 <ProgressBar completed={completed}/>
             </footer>

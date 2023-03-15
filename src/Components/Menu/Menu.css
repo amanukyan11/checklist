@@ -18,6 +18,10 @@
 .lists {
   flex-direction: row;
   display: flex;
+  margin: 3px;
+  border: solid;
+  border-width: 2px;
+  border-radius: 4px;
 }
 
 .listNumber {
@@ -44,13 +48,14 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  flex-direction: column;
 }
 
 .titles {
   /* background-color: #c3a8af; */
   /* background-color: #306160; */
   /* background-color: #3b7876; */
-  background-color: #c4977d;
+  background-color: #d8bbaa;
   padding: 15px;
   border-radius: 10px;
 }
@@ -69,8 +74,32 @@
 .removeList {
   color: white;
   background-color: red;
+  border-right: solid black;
+  border-width: 2px;
+  border: none;
+}
+
+.selectedButton {
+  border-left: solid black;
+  background-color: #808080;
+  border-width: 2px;
+  border: none;
+  border-radius: 3px;
+}
+
+.emptyButton {
+  border-left: solid black;
+  background-color: #808080;
+  border-width: 2px;
+  border: none;
+  border-radius: 3px;
 }
 
 .listNumber {
   text-align: center;
+  background-color: #d8bbaa;
+  border: none;
 }
+
+
+/* #ddc3b5 */

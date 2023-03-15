@@ -60,12 +60,12 @@ function PomodoroTimer() {
       <div className="timerCounter">
         <h1 className="time">{formatTime(time)}</h1>
         <div className="timerButtons">
-          <button className="buttons" onClick={startTimer}>Start</button>
-          <button className="buttons" onClick={pauseTimer}>Pause</button>
-          <button className="buttons" onClick={resetTimer}>Reset</button>
+          <button className="buttons button" onClick={startTimer}>Start</button>
+          <button className="buttons button" onClick={pauseTimer}>Pause</button>
+          <button className="buttons button" onClick={resetTimer}>Reset</button>
         </div>
-        <div className="stateOfTimer">
-          <footer>{sessionType}</footer>
+        <div>
+          <footer className="stateOfTimer">{sessionType}</footer>
         </div>
       </div>
     </div>
@@ -73,11 +73,3 @@ function PomodoroTimer() {
 }
 
 export default PomodoroTimer;
-
-/* 
-        <h1>{formatTime(time)}</h1>
-        <button className="buttons" onClick={startTimer}>Start</button>
-        <button className="buttons" onClick={pauseTimer}>Pause</button>
-        <button className="buttons" onClick={resetTimer}>Reset</button>
-        <footer>{sessionType}</footer>
-*/

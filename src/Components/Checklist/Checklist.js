@@ -2,12 +2,12 @@ import React, { useState, useEffect, useRef } from 'react';
 import "./Checklist.css";
 const connect = require(`../../connect.js`);
 
-function Checklist(props) {
-  const [listid, setListid] = useState(props.list.listid);
-  const [listName, setListName] = useState(props.list.name);
-	const [tasks, setTasks] = useState(props.list.tasks); //defines a variable tasks and a function setTask that updates using 'useState'
-  const [numberOfTasks, setNumberOfTasks] = useState(props.list.numTasks); //used to increment the number of tasks that have been created.
-  const [completedTasks, setCompleteTasks] = useState(props.list.completedTasks);
+function Checklist({ list, tasks, setTasks, completed, updateCompleted, listUpdate }) {
+  const [listid, setListid] = useState(list.listid);
+  const [listName, setListName] = useState(list.name);
+	// const [tasks, setTasks] = useState(list.tasks); //defines a variable tasks and a function setTask that updates using 'useState'
+  const [numberOfTasks, setNumberOfTasks] = useState(list.numTasks); //used to increment the number of tasks that have been created.
+  const [completedTasks, setCompleteTasks] = useState(list.completedTasks);
   const [isTextBoxActive, setTextBoxActive] = useState(false); 
   const [isSaved, setIsSaved] = useState(true); 
   const prevID = usePrevious(listid);
@@ -22,12 +22,14 @@ function Checklist(props) {
   }
 
   useEffect(() => {
-    if (props.list.listid !== listid){
-      setListid(props.list.listid);
-      setListName(props.list.name);
-      setTasks(props.list.tasks);
-      setNumberOfTasks(props.list.numTasks);
-      setCompleteTasks(props.list.completedTasks);
+    updateCompleted(Math.round(completedTasks/numberOfTasks * 100))
+
+    if (list.listid !== listid){
+      setListid(list.listid);
+      setListName(list.name);
+      setTasks(list.tasks);
+      setNumberOfTasks(list.numTasks);
+      setCompleteTasks(list.completedTasks);
     }
     else if (isSaved && !isTextBoxActive && prevID === listid && JSON.stringify(prevTasks) !== JSON.stringify(tasks)){
       updateDB();
@@ -42,7 +44,7 @@ function Checklist(props) {
       checked.push(tasks[i].isCompleted);
     }
     const vals = [listid, listName, content, checked]
-    props.listUpdate(...vals);
+    listUpdate(...vals);
     connect.updateChecklist(...vals)
       .then((res) => console.log(res))
       .catch((e) => console.log(e.message))
@@ -50,8 +52,6 @@ function Checklist(props) {
   }
 
   const addTask = () => {   //adds a new task to the 'task' array and uses setTasks to update the 'task'
-    //TODO #1: check if the current task value is not empty
-    //TODO #2: not show the 'Add task' button until 'save' button is clicked
     setTasks([...tasks, '']);
   };
 
@@ -132,38 +132,38 @@ function Checklist(props) {
   };
   
   return (
-    props.updateCompleted(Math.round(completedTasks/numberOfTasks * 100)),
     <div className="checklist">
       {tasks.map((task, index) => (
         <div key={index} className={`checklistTask ${task.isCompleted ? 'completed' : ''}`}> {/* 'completed' is a special case for strikthrough */}
-          <button className="deleteButton" onClick={() => removeTask(index)}>X</button>
+          <button className="deleteButton button2" onClick={() => removeTask(index)}>X</button>
           <input
+            className="taskTextBox"
             type="text"
             value={task.text}
             onChange={(event) => updateTask(index, {text: event.target.value, isCompleted: task.isCompleted})}
             onFocus={() => setTextBoxActive(true)}
           />
           {task.isCompleted ? (
-          <button className="checkButton" onClick={() => crossOutTask(index)}>&#10003;</button>
-          ) : (
-          <button className="emptyButton" onClick={() => crossOutTask(index)}>&shy;</button>
+            <button className="checkButton button2" onClick={() => crossOutTask(index)}>&#10003;</button>
+            ) : (
+            <button className="emptyButton button2" onClick={() => crossOutTask(index)}>&shy;</button>
           )}
         </div>
       ))}
       <form onSubmit={handleSubmit}>
-        <button className="newTask" type="submit">Add Task</button>
+        <button className="newTask button" type="submit">Add Task</button>
         {isTextBoxActive && (
-        <button className="saveButton" onClick={() => {
+        <button className="saveButton button" onClick={() => {
           setTextBoxActive(false)
           incrementTasks();
           updateDB();
           }}>Save</button>)}
       </form>
       <div> 
-        <button onClick={()=>shareList()}>Share List</button>
+        <button className="button" onClick={()=>shareList()}>Share List</button>
       </div>
       <div>
-    <p>Number of tasks: {numberOfTasks} Number of completed tasks: {completedTasks} Completed: {props.completed}</p>
+    <p>Number of tasks: {numberOfTasks} Number of completed tasks: {completedTasks} Completed: {completed}</p>
       </div>
   </div>
   );

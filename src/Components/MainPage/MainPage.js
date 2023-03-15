@@ -29,18 +29,21 @@ function MainPage () {
             setUserId(location.state.userid);
             onLogin(location.state.userid);
         }
-        
     });
 
     const onLogout = () => {
         setLogout(true);
     }
 
+    function updateTreeEXP (experience) {
+
+    }
+
     return (
         <div className="MainPage">
             <div className="container">
                 <div className="mainLeft">
-                    {userInfo.lists && <Menu lists={userInfo.lists} userid={userid}/>}
+                    {userInfo.lists && <Menu lists={userInfo.lists} userid={userid} updateTreeEXP={updateTreeEXP}/>} 
                 </div>
                 <div className="mainRight">
                     <div className='right-half right-top'>
@@ -59,7 +62,7 @@ function MainPage () {
                     <Timer/>
                     <br/>
                     <div>
-                        <button onClick={onLogout}>Logout</button>
+                        <button className="button" onClick={onLogout}>Logout</button>
                         {logout && <Navigate to="/"/>}
                             </div>
                         </div>
