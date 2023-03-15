@@ -5,8 +5,11 @@
     align-items: stretch;
     justify-content: space-between;
     background-color:#A8C3BC;
+    background-image: linear-gradient(#A8C3BC, #8cb0a7, #6e9b90);
   }
   
+  /* #A8C3BC, #8cb0a7, #6e9b90, #5e887d, #4d7067, #3d5851 */
+
   .mainLeft {
     flex: 1 1 80%;
     display: flex;
