@@ -1,9 +1,9 @@
 // information to connect to the pgsql server
 const clientInfo = ({
-	host: 'database.colb6htozgeu.us-west-1.rds.amazonaws.com',
-	port: 5432,
+	host: 'url',
+	port: port,
 	database: 'postgres',
-	user: 'postgres',
-	password: 'testing!!'
+	user: 'user',
+	password: 'pass'
 });
 module.exports = clientInfo;
