@@ -10,25 +10,18 @@ function Tree (props) {
   const [index, setIndex] = useState(0);
   const srcs = [Class1, Class2, Class3, Class4, Class5];
   const desc = ["Sprout", "Seedling", "Sapling", "Young Tree", "Mature Tree"]
-  const prevIndex = usePrevious(index);
-  function usePrevious(value) {
-    const ref = useRef();
-    useEffect(() => {
-      ref.current = value;
-    });
-    return ref.current;
-  }
 
   useEffect(() => {
-    if (prevIndex === index) {
-      return;
-    }
-    console.log(index);
+    let newIndex = 0;
     if (props.prog > 20) {
-      setIndex(4);
+      newIndex = 4;
     }
     else {
-      setIndex(~~(props.prog / 5));
+      newIndex = ~~(props.prog / 5);
+    }
+    if (newIndex !== index) {
+      console.log(`new tree index: ${newIndex}`);
+      setIndex(newIndex);
     }
   })
   
