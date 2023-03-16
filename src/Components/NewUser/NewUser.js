@@ -8,6 +8,7 @@ class newuser extends Component {
   constructor( props ){
     super( props );
     this.submit2 = this.submit2.bind(this);
+    this.switchProfile = props.switchProfile;
     this.state = {
       userid:null
     };
@@ -23,7 +24,8 @@ class newuser extends Component {
           alert("That username already exists.");
         }
         else{
-          this.setState({userid: id});
+          alert(`User created: ${username}`);
+          this.switchProfile();
         }
       
       
