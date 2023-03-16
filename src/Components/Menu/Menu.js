@@ -7,7 +7,7 @@ function Menu (props) {
     const [lists, setLists] = useState(props.lists); //lists is a nested array, every index corresponds to a checklist = [checklist, 0], [checklist, 1]...
     const [currIndex, setCurrIndex] = useState(undefined);
     const [completed, setCompleted] = useState(0);
-    const [curList, setCurList] = useState(null);
+    const [curList, setCurList] = useState({listid: null});
     const [tasks, setTasks] = useState([])
     const [isSaved, setIsSaved] = useState(true); 
     const [numberOfTasks, setNumberOfTasks] = useState(0); //used to increment the number of tasks that have been created.
@@ -78,6 +78,10 @@ function Menu (props) {
         connect.deleteChecklist(remList.listid);
         const newLists = [...lists];
         newLists.splice(index, 1);
+        if (index === currIndex || newLists.length === 0){
+            setCurList({listid: null});
+            setCurrIndex(undefined);
+        }
         setLists(newLists);
     };
 
@@ -132,6 +136,13 @@ function Menu (props) {
           if (i === index) {
             if (newName === "") {
                 newName = list.name;
+            }
+            if (currIndex === index) {
+                const newCurList = {
+                    ...curList,
+                    name: newName
+                }
+                setCurList(newCurList);
             }
             connect.updateChecklist(list.listid, newName, list.content, list.checked)
                 .then((res) => console.log(`listname updated: ${list.name} => ${newName}`))
@@ -225,7 +236,7 @@ function Menu (props) {
                 <div className="titles">Checklist</div>
                 <button className="growTreeButton button" onClick={removeCompletedTask}>Grow Tree</button>
             </h1>
-            {curList && <Checklist list={curList} tasks={tasks} setTasks={setTasks} numberOfTasks={numberOfTasks} setNumberOfTasks={setNumberOfTasks} completed={completed} updateCompleted={updateCompleted} listUpdate={onListUpdate} isSaved={isSaved} setIsSaved={setIsSaved} completedTasks={completedTasks} setCompleteTasks={setCompleteTasks} />}
+            {curList.listid && <Checklist list={curList} tasks={tasks} setTasks={setTasks} numberOfTasks={numberOfTasks} setNumberOfTasks={setNumberOfTasks} completed={completed} updateCompleted={updateCompleted} listUpdate={onListUpdate} isSaved={isSaved} setIsSaved={setIsSaved} completedTasks={completedTasks} setCompleteTasks={setCompleteTasks} />}
             <footer className="centerBottom">
                 <ProgressBar completed={completed}/>
             </footer>
