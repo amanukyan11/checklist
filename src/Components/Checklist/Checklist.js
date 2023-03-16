@@ -177,9 +177,6 @@ function Checklist({ list, tasks, setTasks, numberOfTasks, setNumberOfTasks, com
       <div> 
         <button className="button" onClick={()=>shareList()}>Share List</button>
       </div>
-      <div>
-    <p>Number of tasks: {numberOfTasks} Number of completed tasks: {completedTasks} Completed: {completed}</p>
-      </div>
   </div>
   );
 }
