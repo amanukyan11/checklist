@@ -25,7 +25,7 @@ function Checklist({ list, tasks, setTasks, numberOfTasks, setNumberOfTasks, com
   }, [completedTasks, numberOfTasks])
 
   useEffect(() => {
-    if (list.listid !== listid){
+    if (list.listid !== listid || list.name !== listName){
       setListid(list.listid);
       setListName(list.name);
       setTasks(list.tasks);
@@ -36,7 +36,7 @@ function Checklist({ list, tasks, setTasks, numberOfTasks, setNumberOfTasks, com
       updateDB();
     }
 
-  }, [tasks])
+  }, [tasks, list])
 
   function updateDB() {
     const content = [];
