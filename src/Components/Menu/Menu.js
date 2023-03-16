@@ -10,6 +10,8 @@ function Menu (props) {
     const [curList, setCurList] = useState(null);
     const [tasks, setTasks] = useState([])
     const [isSaved, setIsSaved] = useState(true); 
+    const [numberOfTasks, setNumberOfTasks] = useState(0); //used to increment the number of tasks that have been created.
+
 
     useEffect(() => {
         const newCurList = {
@@ -17,7 +19,8 @@ function Menu (props) {
             "tasks": tasks
         }
         setCurList(newCurList)
-        
+        // setNumberOfTasks(tasks.length)
+
     }, [tasks])
 
     function onListUpdate(id, name, content, checked) {
@@ -170,6 +173,7 @@ function Menu (props) {
             "completedTasks": 0
         });
         setTasks(newTasks)
+        setNumberOfTasks(newTasks.length)
     }
 
 
@@ -210,7 +214,7 @@ function Menu (props) {
                 <div className="titles">Checklist</div>
                 <button className="growTreeButton button" onClick={removeCompletedTask}>Grow Tree</button>
             </h1>
-            {curList && <Checklist list={curList} tasks={tasks} setTasks={setTasks} completed={completed} updateCompleted={updateCompleted} listUpdate={onListUpdate} isSaved={isSaved} setIsSaved={setIsSaved} />}
+            {curList && <Checklist list={curList} tasks={tasks} setTasks={setTasks} numberOfTasks={numberOfTasks} setNumberOfTasks={setNumberOfTasks} completed={completed} updateCompleted={updateCompleted} listUpdate={onListUpdate} isSaved={isSaved} setIsSaved={setIsSaved} />}
             <footer className="centerBottom">
                 <ProgressBar completed={completed}/>
             </footer>

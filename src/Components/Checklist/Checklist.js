@@ -2,10 +2,9 @@ import React, { useState, useEffect, useRef } from 'react';
 import "./Checklist.css";
 const connect = require(`../../connect.js`);
 
-function Checklist({ list, tasks, setTasks, completed, updateCompleted, listUpdate, isSaved, setIsSaved }) {
+function Checklist({ list, tasks, setTasks, numberOfTasks, setNumberOfTasks, completed, updateCompleted, listUpdate, isSaved, setIsSaved }) {
   const [listid, setListid] = useState(list.listid);
   const [listName, setListName] = useState(list.name);
-  const [numberOfTasks, setNumberOfTasks] = useState(list.numTasks); //used to increment the number of tasks that have been created.
   const [completedTasks, setCompleteTasks] = useState(list.completedTasks);
   const [isTextBoxActive, setTextBoxActive] = useState(false); 
   const prevID = usePrevious(listid);
@@ -43,8 +42,6 @@ function Checklist({ list, tasks, setTasks, completed, updateCompleted, listUpda
       content.push(task.text)
       checked.push(task.isCompleted)
     })
-
-    console.log("Tasks: ", tasks)
     
     const vals = [listid, listName, content, checked]
     listUpdate(...vals);
@@ -64,7 +61,10 @@ function Checklist({ list, tasks, setTasks, completed, updateCompleted, listUpda
   };
 
   function incrementTasks() {
-    if (isTextBoxActive && tasks.filter(task => task.text.trim() !== '').length > numberOfTasks) {
+    const filter = tasks.filter(task => task.text.trim() !== '')
+    const filteredLength = filter.length
+
+    if (isTextBoxActive && filteredLength > numberOfTasks) {
       setNumberOfTasks(numberOfTasks + 1);
       setIsSaved(true);
     }
@@ -115,6 +115,7 @@ function Checklist({ list, tasks, setTasks, completed, updateCompleted, listUpda
 
   const handleSubmit = (event) => { //This is the 'Add Task' button's functionality.
     event.preventDefault();
+
     if(isSaved){
       setIsSaved(false);
       addTask();
