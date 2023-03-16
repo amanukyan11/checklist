@@ -226,7 +226,6 @@ function Menu (props) {
                     <form onSubmit={handleSubmit}>
                         <button className="addList button" type="submit">New List</button>
                     </form>
-                    <p>Completed: {completed}</p>
                 </div>
             </div>
         </div>
