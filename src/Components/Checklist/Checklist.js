@@ -160,7 +160,7 @@ function Checklist({ list, tasks, setTasks, numberOfTasks, setNumberOfTasks, com
           {task.isCompleted ? (
             <button className="checkButton button2" onClick={() => crossOutTask(index)}>&#10003;</button>
             ) : (
-            <button className="emptyButton button2" onClick={() => crossOutTask(index)}>&shy;</button>
+            <button className="emptyButton1 button2" onClick={() => crossOutTask(index)}>&shy;</button>
           )}
         </div>
       ))}
