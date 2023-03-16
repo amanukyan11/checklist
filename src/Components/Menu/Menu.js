@@ -128,7 +128,6 @@ function Menu (props) {
     //remove every completeded task
     //pass the number of Compelted tasks to the tree
     const removeCompletedTask = () =>  {
-        // console.log(lists);
         
         props.updateTreeEXP(curList.completedTasks)
 

@@ -32,7 +32,6 @@ function Checklist({ list, tasks, setTasks, completed, updateCompleted, listUpda
     else if (isSaved && !isTextBoxActive && prevID === listid && JSON.stringify(prevTasks) !== JSON.stringify(tasks)){
       updateDB();
     }
-
   }, [])
 
   function updateDB() {
@@ -119,19 +118,21 @@ function Checklist({ list, tasks, setTasks, completed, updateCompleted, listUpda
 
   const crossOutTask = (index) => {
     const taskText = tasks[index].text;
-    if (isTextBoxActive){
-      return;
-    }
+    if (isTextBoxActive) return;
+
     if (taskText) {
       const newTasks = [...tasks];
+
+      console.log(newTasks[index])
       if (!newTasks[index].isCompleted) {
-        newTasks[index] = {...tasks[index], isCompleted: true};
+        newTasks[index] = { text: tasks[index].text, isCompleted: true};
         setCompleteTasks(completedTasks + 1)
       } else {
-        newTasks[index] = {...tasks[index], isCompleted: false};
+        newTasks[index] = { text: tasks[index].text, isCompleted: false};
         setCompleteTasks(completedTasks - 1)
       }
       setTasks(newTasks);
+      updateDB();
     }
   };
   
