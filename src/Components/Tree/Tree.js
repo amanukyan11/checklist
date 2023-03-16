@@ -9,6 +9,7 @@ import React, { useState, useEffect, useRef } from "react";
 function Tree (props) {   
   const [index, setIndex] = useState(0);
   const srcs = [Class1, Class2, Class3, Class4, Class5];
+  const desc = ["Sprout", "Seedling", "Sapling", "Young Tree", "Mature Tree"]
   const prevIndex = usePrevious(index);
   function usePrevious(value) {
     const ref = useRef();
@@ -22,7 +23,13 @@ function Tree (props) {
     if (prevIndex === index) {
       return;
     }
-    setIndex(props.prog % 5);
+    console.log(index);
+    if (props.prog > 20) {
+      setIndex(4);
+    }
+    else {
+      setIndex(~~(props.prog / 5));
+    }
   })
   
     return (
@@ -31,7 +38,7 @@ function Tree (props) {
         <img
           className={`photo${index + 1}`}
           src={srcs[index]}
-          alt={`photo ${index + 1}`}
+          alt={desc[index]}
         />
         </div>
       </>
