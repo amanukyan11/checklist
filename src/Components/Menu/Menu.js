@@ -1,7 +1,7 @@
 import "./Menu.css"
 import Checklist from "../Checklist/Checklist"
 import ProgressBar from '../ProgressBar/ProgressBar';
-import {useState} from 'react';
+import {useEffect, useState} from 'react';
 const connect = require("../../connect");
 function Menu (props) {
     const [lists, setLists] = useState(props.lists); //lists is a nested array, every index corresponds to a checklist = [checklist, 0], [checklist, 1]...
@@ -11,6 +11,14 @@ function Menu (props) {
     const [tasks, setTasks] = useState([])
     const [isSaved, setIsSaved] = useState(true); 
 
+    useEffect(() => {
+        const newCurList = {
+            ...curList,
+            "tasks": tasks
+        }
+        setCurList(newCurList)
+        
+    }, [tasks])
 
     function onListUpdate(id, name, content, checked) {
         for (let i = 0; i < lists.length; i++) {
@@ -72,15 +80,18 @@ function Menu (props) {
 
         setIsSaved(true)
         setCurrIndex(index);
-        setLists(prevLists => prevLists.map((list, i) => {
-          if (i === index) {
-            return { ...list, isSelected: true };
-          } else {
-            return { ...list, isSelected: false };
-          }
-        }));
+
+        const newLists = lists.map((list, i) => {
+            if (i === index) {
+              return { ...list, isSelected: true };
+            } else {
+              return { ...list, isSelected: false };
+            }
+        })
+        setLists(newLists);
+
         // console.log(lists[index]);
-        const list = lists[index];
+        const list = newLists[index];
         const content = list["content"];
         const checked = list["checked"];
         let newNumTasks = null;
