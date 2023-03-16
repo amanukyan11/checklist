@@ -2,10 +2,9 @@ import React, { useState, useEffect, useRef } from 'react';
 import "./Checklist.css";
 const connect = require(`../../connect.js`);
 
-function Checklist({ list, tasks, setTasks, numberOfTasks, setNumberOfTasks, completed, updateCompleted, listUpdate, isSaved, setIsSaved }) {
+function Checklist({ list, tasks, setTasks, numberOfTasks, setNumberOfTasks, completed, updateCompleted, listUpdate, isSaved, setIsSaved, completedTasks, setCompleteTasks }) {
   const [listid, setListid] = useState(list.listid);
   const [listName, setListName] = useState(list.name);
-  const [completedTasks, setCompleteTasks] = useState(list.completedTasks);
   const [isTextBoxActive, setTextBoxActive] = useState(false); 
   const prevID = usePrevious(listid);
   const prevTasks = usePrevious(tasks);
@@ -19,8 +18,13 @@ function Checklist({ list, tasks, setTasks, numberOfTasks, setNumberOfTasks, com
   }
 
   useEffect(() => {
-    updateCompleted(Math.round(completedTasks/numberOfTasks * 100))
+    if (numberOfTasks !== 0 ) {
+      const ratio = Math.round(completedTasks/numberOfTasks * 100)
+      updateCompleted(ratio)
+    }
+  }, [completedTasks, numberOfTasks])
 
+  useEffect(() => {
     if (list.listid !== listid){
       setListid(list.listid);
       setListName(list.name);
