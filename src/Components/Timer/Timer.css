@@ -38,7 +38,6 @@
     flex-direction: column;
     justify-content: center; /* centers content vertically */
     align-items: center; /* centers content horizontally */
-    /* height: 100vh; /* or any other height */
     text-align: center;
   }
 
@@ -54,5 +53,9 @@
     border: none;
     padding: 5px;
     border-radius: 10px;
+  }
+
+  .buttons {
+    margin: 2px;
   }
   
