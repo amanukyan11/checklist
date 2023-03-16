@@ -33,7 +33,8 @@ function Checklist({ list, tasks, setTasks, completed, updateCompleted, listUpda
     else if (isSaved && !isTextBoxActive && prevID === listid && JSON.stringify(prevTasks) !== JSON.stringify(tasks)){
       updateDB();
     }
-  })
+
+  }, [])
 
   function updateDB() {
     const content = [];

@@ -51,7 +51,7 @@ function Tree (props) {
           alt="photo 5"
         />
       );
-    } })
+    } }, [])
   
     return (
       <>

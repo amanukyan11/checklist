@@ -29,7 +29,7 @@ function MainPage () {
             setUserId(location.state.userid);
             onLogin(location.state.userid);
         }
-    });
+    }, []);
 
     const onLogout = () => {
         setLogout(true);
