@@ -60,6 +60,8 @@ function Menu (props) {
     }
     
     const removeList = (index) => {//this removes a list from the menu
+        const remList = lists[index];
+        connect.deleteChecklist(remList.listid);
         const newLists = [...lists];
         newLists.splice(index, 1);
         setLists(newLists);
@@ -106,6 +108,12 @@ function Menu (props) {
       const handleNameChange = (index, newName) => {
         setLists(prevLists => prevLists.map((list, i) => {
           if (i === index) {
+            if (newName === "") {
+                newName = list.name;
+            }
+            connect.updateChecklist(list.listid, newName, list.content, list.checked)
+                .then((res) => console.log(`listname updated: ${list.name} => ${newName}`))
+                .catch((e) => console.log(e.message));
             return { ...list, name: newName };
           } else {
             return list;
