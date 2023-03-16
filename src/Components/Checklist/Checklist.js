@@ -32,15 +32,20 @@ function Checklist({ list, tasks, setTasks, completed, updateCompleted, listUpda
     else if (isSaved && !isTextBoxActive && prevID === listid && JSON.stringify(prevTasks) !== JSON.stringify(tasks)){
       updateDB();
     }
-  }, [])
+
+  }, [tasks])
 
   function updateDB() {
     const content = [];
     const checked = [];
-    for (let i = 0; i < tasks.length; i++) {
-      content.push(tasks[i].text);
-      checked.push(tasks[i].isCompleted);
-    }
+
+    tasks.forEach(task => {
+      content.push(task.text)
+      checked.push(task.isCompleted)
+    })
+
+    console.log("Tasks: ", tasks)
+    
     const vals = [listid, listName, content, checked]
     listUpdate(...vals);
     connect.updateChecklist(...vals)
@@ -132,7 +137,6 @@ function Checklist({ list, tasks, setTasks, completed, updateCompleted, listUpda
         setCompleteTasks(completedTasks - 1)
       }
       setTasks(newTasks);
-      updateDB();
     }
   };
   
