@@ -5,10 +5,12 @@ import {useState} from 'react';
 const connect = require("../../connect");
 function Menu (props) {
     const [lists, setLists] = useState(props.lists); //lists is a nested array, every index corresponds to a checklist = [checklist, 0], [checklist, 1]...
-    const [currIndex, setCurrIndex] = useState(0);
+    const [currIndex, setCurrIndex] = useState(undefined);
     const [completed, setCompleted] = useState(0);
     const [curList, setCurList] = useState(null);
     const [tasks, setTasks] = useState([])
+    const [isSaved, setIsSaved] = useState(true); 
+
 
     function onListUpdate(id, name, content, checked) {
         for (let i = 0; i < lists.length; i++) {
@@ -66,6 +68,9 @@ function Menu (props) {
     };
 
     const handleListClick = (index) => { //this handles the assigning of isSelected for switching from dot to empty
+        if (index === currIndex) return
+
+        setIsSaved(true)
         setCurrIndex(index);
         setLists(prevLists => prevLists.map((list, i) => {
           if (i === index) {
@@ -74,7 +79,7 @@ function Menu (props) {
             return { ...list, isSelected: false };
           }
         }));
-        console.log(lists[index]);
+        // console.log(lists[index]);
         const list = lists[index];
         const content = list["content"];
         const checked = list["checked"];
@@ -85,7 +90,7 @@ function Menu (props) {
         catch(err) {
             newNumTasks = 0;
         }
-        console.log(newNumTasks);
+        // console.log(newNumTasks);
         let newTasks = [];
         let newCompletedTasks = 0;
         for (let i = 0; i < newNumTasks; i++) {
@@ -102,16 +107,17 @@ function Menu (props) {
             "completedTasks": newCompletedTasks
         });
         setTasks(newTasks)
-      };
-      const handleNameChange = (index, newName) => {
+    };
+
+    const handleNameChange = (index, newName) => {
         setLists(prevLists => prevLists.map((list, i) => {
-          if (i === index) {
-            return { ...list, name: newName };
-          } else {
-            return list;
-          }
+            if (i === index) {
+                return { ...list, name: newName };
+            } else {
+                return list;
+            }
         }));
-      }
+    }
 
     const handleSubmit = (event) => { //This is the 'Add Task' button's functionality.
         event.preventDefault();
@@ -194,7 +200,7 @@ function Menu (props) {
                 <div className="titles">Checklist</div>
                 <button className="growTreeButton button" onClick={removeCompletedTask}>Grow Tree</button>
             </h1>
-            {curList && <Checklist list={curList} tasks={tasks} setTasks={setTasks} completed={completed} updateCompleted={updateCompleted} listUpdate={onListUpdate}/>}
+            {curList && <Checklist list={curList} tasks={tasks} setTasks={setTasks} completed={completed} updateCompleted={updateCompleted} listUpdate={onListUpdate} isSaved={isSaved} setIsSaved={setIsSaved} />}
             <footer className="centerBottom">
                 <ProgressBar completed={completed}/>
             </footer>

@@ -2,13 +2,12 @@ import React, { useState, useEffect, useRef } from 'react';
 import "./Checklist.css";
 const connect = require(`../../connect.js`);
 
-function Checklist({ list, tasks, setTasks, completed, updateCompleted, listUpdate }) {
+function Checklist({ list, tasks, setTasks, completed, updateCompleted, listUpdate, isSaved, setIsSaved }) {
   const [listid, setListid] = useState(list.listid);
   const [listName, setListName] = useState(list.name);
   const [numberOfTasks, setNumberOfTasks] = useState(list.numTasks); //used to increment the number of tasks that have been created.
   const [completedTasks, setCompleteTasks] = useState(list.completedTasks);
   const [isTextBoxActive, setTextBoxActive] = useState(false); 
-  const [isSaved, setIsSaved] = useState(true); 
   const prevID = usePrevious(listid);
   const prevTasks = usePrevious(tasks);
 
