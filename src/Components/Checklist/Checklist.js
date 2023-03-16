@@ -5,7 +5,6 @@ const connect = require(`../../connect.js`);
 function Checklist({ list, tasks, setTasks, completed, updateCompleted, listUpdate }) {
   const [listid, setListid] = useState(list.listid);
   const [listName, setListName] = useState(list.name);
-	// const [tasks, setTasks] = useState(list.tasks); //defines a variable tasks and a function setTask that updates using 'useState'
   const [numberOfTasks, setNumberOfTasks] = useState(list.numTasks); //used to increment the number of tasks that have been created.
   const [completedTasks, setCompleteTasks] = useState(list.completedTasks);
   const [isTextBoxActive, setTextBoxActive] = useState(false); 
@@ -52,7 +51,12 @@ function Checklist({ list, tasks, setTasks, completed, updateCompleted, listUpda
   }
 
   const addTask = () => {   //adds a new task to the 'task' array and uses setTasks to update the 'task'
-    setTasks([...tasks, '']);
+    setTasks([...tasks, 
+      {
+        text: '',
+        isCompleted: false
+      }
+    ]);
   };
 
   function incrementTasks() {
@@ -152,6 +156,7 @@ function Checklist({ list, tasks, setTasks, completed, updateCompleted, listUpda
       ))}
       <form onSubmit={handleSubmit}>
         <button className="newTask button" type="submit">Add Task</button>
+        
         {isTextBoxActive && (
         <button className="saveButton button" onClick={() => {
           setTextBoxActive(false)
