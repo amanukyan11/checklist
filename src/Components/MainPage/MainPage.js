@@ -41,7 +41,7 @@ function MainPage () {
         connect.growTree(userid, experience);
         setUserInfo({
             email: userInfo.email,
-            tree_prog: experience,
+            tree_prog: userInfo.tree_prog + experience,
             lists: userInfo.lists
         });
     }
