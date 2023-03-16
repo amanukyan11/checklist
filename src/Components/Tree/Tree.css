@@ -5,21 +5,25 @@
   }
 
   .photo1 {
-    width: 150px;
+    width: 50px;
+    transform: translateY(200px);
   }
-  
+
   .photo2 {
-    width: 150px;
+    width: 80px;
+    transform: translateY(147px);
   }
 
   .photo3 {
     width: 150px;
+    transform: translateY(65px);
   }
 
   .photo4 {
-    width: 150px;
+    width: 170px;
+    transform: translateY(8px);
   }
 
   .photo5 {
-    width: 150px;
+    width: 200px;
   }
