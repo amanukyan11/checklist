@@ -4,59 +4,35 @@ import Class3 from "./images/photo3.png";
 import Class4 from "./images/photo4.png";
 import Class5 from "./images/photo5.png";
 import "./Tree.css"
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 
 function Tree (props) {   
-  const [img, setImage] = useState(null);
+  const [index, setIndex] = useState(0);
+  const srcs = [Class1, Class2, Class3, Class4, Class5];
+  const prevIndex = usePrevious(index);
+  function usePrevious(value) {
+    const ref = useRef();
+    useEffect(() => {
+      ref.current = value;
+    });
+    return ref.current;
+  }
 
   useEffect(() => {
-    let tree_prog = props.prog % 5;
-    if (tree_prog===0) {
-      setImage(
-        <img
-          className="photo1"
-          src={Class1}
-          alt="photo 1"
-        />
-      );
-    } else if (tree_prog===1) {
-      setImage(
-        <img
-          className="photo2"
-          src={Class2}
-          alt="photo 2"
-        />
-      );
-    } else if (tree_prog===2) {
-      setImage(
-        <img
-          className="photo3"
-          src={Class3}
-          alt="photo 3"
-        />
-      );
-    } else if (tree_prog===3) {
-      setImage(
-        <img
-          className="photo4"
-          src={Class4}
-          alt="photo 4"
-        />
-      );
-    } else if (tree_prog===4) {
-      setImage(
-        <img
-          className="photo5"
-          src={Class5}
-          alt="photo 5"
-        />
-      );
-    } })
+    if (prevIndex === index) {
+      return;
+    }
+    setIndex(props.prog % 5);
+  })
   
     return (
       <>
         <div className="toggle-wrapper">
-          {img}
+        <img
+          className={`photo${index + 1}`}
+          src={srcs[index]}
+          alt={`photo ${index + 1}`}
+        />
         </div>
       </>
     );
