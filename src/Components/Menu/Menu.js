@@ -153,7 +153,7 @@ function Menu (props) {
     //pass the number of Compelted tasks to the tree
     const removeCompletedTask = () =>  {
         
-        props.updateTreeEXP(curList.completedTasks)
+        props.updateTreeEXP(completedTasks)
 
         const id = curList.listid;
         const name = curList.name;

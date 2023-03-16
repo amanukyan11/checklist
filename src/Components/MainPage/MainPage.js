@@ -36,7 +36,14 @@ function MainPage () {
     }
 
     function updateTreeEXP (experience) {
-
+        console.log("updating tree exp");
+        console.log(userid, experience);
+        connect.growTree(userid, experience);
+        setUserInfo({
+            email: userInfo.email,
+            tree_prog: experience,
+            lists: userInfo.lists
+        });
     }
 
     return (
