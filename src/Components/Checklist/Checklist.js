@@ -2,14 +2,10 @@ import React, { useState, useEffect, useRef } from 'react';
 import "./Checklist.css";
 const connect = require(`../../connect.js`);
 
-function Checklist({ list, tasks, setTasks, completed, updateCompleted, listUpdate }) {
+function Checklist({ list, tasks, setTasks, numberOfTasks, setNumberOfTasks, completed, updateCompleted, listUpdate, isSaved, setIsSaved, completedTasks, setCompleteTasks }) {
   const [listid, setListid] = useState(list.listid);
   const [listName, setListName] = useState(list.name);
-	// const [tasks, setTasks] = useState(list.tasks); //defines a variable tasks and a function setTask that updates using 'useState'
-  const [numberOfTasks, setNumberOfTasks] = useState(list.numTasks); //used to increment the number of tasks that have been created.
-  const [completedTasks, setCompleteTasks] = useState(list.completedTasks);
   const [isTextBoxActive, setTextBoxActive] = useState(false); 
-  const [isSaved, setIsSaved] = useState(true); 
   const prevID = usePrevious(listid);
   const prevTasks = usePrevious(tasks);
 
@@ -22,8 +18,13 @@ function Checklist({ list, tasks, setTasks, completed, updateCompleted, listUpda
   }
 
   useEffect(() => {
-    updateCompleted(Math.round(completedTasks/numberOfTasks * 100))
+    if (numberOfTasks !== 0 ) {
+      const ratio = Math.round(completedTasks/numberOfTasks * 100)
+      updateCompleted(ratio)
+    }
+  }, [completedTasks, numberOfTasks])
 
+  useEffect(() => {
     if (list.listid !== listid){
       setListid(list.listid);
       setListName(list.name);
@@ -34,15 +35,18 @@ function Checklist({ list, tasks, setTasks, completed, updateCompleted, listUpda
     else if (isSaved && !isTextBoxActive && prevID === listid && JSON.stringify(prevTasks) !== JSON.stringify(tasks)){
       updateDB();
     }
-  })
+
+  }, [tasks])
 
   function updateDB() {
     const content = [];
     const checked = [];
-    for (let i = 0; i < tasks.length; i++) {
-      content.push(tasks[i].text);
-      checked.push(tasks[i].isCompleted);
-    }
+
+    tasks.forEach(task => {
+      content.push(task.text)
+      checked.push(task.isCompleted)
+    })
+    
     const vals = [listid, listName, content, checked]
     listUpdate(...vals);
     connect.updateChecklist(...vals)
@@ -52,11 +56,19 @@ function Checklist({ list, tasks, setTasks, completed, updateCompleted, listUpda
   }
 
   const addTask = () => {   //adds a new task to the 'task' array and uses setTasks to update the 'task'
-    setTasks([...tasks, '']);
+    setTasks([...tasks, 
+      {
+        text: '',
+        isCompleted: false
+      }
+    ]);
   };
 
   function incrementTasks() {
-    if (isTextBoxActive && tasks.filter(task => task.text.trim() !== '').length > numberOfTasks) {
+    const filter = tasks.filter(task => task.text.trim() !== '')
+    const filteredLength = filter.length
+
+    if (isTextBoxActive && filteredLength > numberOfTasks) {
       setNumberOfTasks(numberOfTasks + 1);
       setIsSaved(true);
     }
@@ -107,6 +119,7 @@ function Checklist({ list, tasks, setTasks, completed, updateCompleted, listUpda
 
   const handleSubmit = (event) => { //This is the 'Add Task' button's functionality.
     event.preventDefault();
+
     if(isSaved){
       setIsSaved(false);
       addTask();
@@ -115,16 +128,17 @@ function Checklist({ list, tasks, setTasks, completed, updateCompleted, listUpda
 
   const crossOutTask = (index) => {
     const taskText = tasks[index].text;
-    if (isTextBoxActive){
-      return;
-    }
+    if (isTextBoxActive) return;
+
     if (taskText) {
       const newTasks = [...tasks];
+
+      console.log(newTasks[index])
       if (!newTasks[index].isCompleted) {
-        newTasks[index] = {...tasks[index], isCompleted: true};
+        newTasks[index] = { text: tasks[index].text, isCompleted: true};
         setCompleteTasks(completedTasks + 1)
       } else {
-        newTasks[index] = {...tasks[index], isCompleted: false};
+        newTasks[index] = { text: tasks[index].text, isCompleted: false};
         setCompleteTasks(completedTasks - 1)
       }
       setTasks(newTasks);
@@ -152,6 +166,7 @@ function Checklist({ list, tasks, setTasks, completed, updateCompleted, listUpda
       ))}
       <form onSubmit={handleSubmit}>
         <button className="newTask button" type="submit">Add Task</button>
+        
         {isTextBoxActive && (
         <button className="saveButton button" onClick={() => {
           setTextBoxActive(false)
