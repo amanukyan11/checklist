@@ -19,6 +19,7 @@ Make sure to fill out the information in `./backend/client_info.js`.
 
 In the terminal, run:
 
+##### `npm install`
 ##### `npm run dev`
 
 The app is now accessible at
