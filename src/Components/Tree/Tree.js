@@ -12,12 +12,13 @@ function Tree (props) {
   const desc = ["Sprout", "Seedling", "Sapling", "Young Tree", "Mature Tree"]
 
   useEffect(() => {
+    const scale = 3;
     let newIndex = 0;
-    if (props.prog > 20) {
+    if (props.prog > 5 * scale) {
       newIndex = 4;
     }
     else {
-      newIndex = ~~(props.prog / 5);
+      newIndex = ~~(props.prog / scale);
     }
     if (newIndex !== index) {
       console.log(`new tree index: ${newIndex}`);
