@@ -75,9 +75,9 @@ function Checklist({ list, tasks, setTasks, numberOfTasks, setNumberOfTasks, com
   } 
   
   function shareList() {
-    let email = prompt("Enter the email of the person you wish to share with:");
+    let email = prompt("Enter the username of the person you wish to share with:");
     if (email === null || email === "") {
-      alert("No email entered. List not shared");
+      alert("No username entered. List not shared");
     }
     else {
       const badMsg = 'Something went wrong. List not shared.'
