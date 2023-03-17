@@ -56,7 +56,7 @@ function MainPage () {
                     <div className='right-half right-top'>
                         <div className='half-wrapper'>
                     <h1 className="topRight">
-                        <div className="titles">Success Sapling</div>
+                        <div className="titles title2">Success Sapling</div>
                     </h1>
                     {userInfo.tree_prog !== null && <Tree prog={userInfo.tree_prog}/>}
                         </div>
@@ -64,7 +64,7 @@ function MainPage () {
                     <div className='right-half right-bottom'>
                         <div className='half-wrapper'>
                     <h1 className="bottomRight">
-                        <div className="titles">Pomodoro Timer</div>
+                        <div className="titles title2">Pomodoro Timer</div>
                     </h1>
                     <Timer/>
                     <br/>

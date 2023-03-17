@@ -1,7 +1,7 @@
 .container {
     display: flex;
     flex-direction: row;
-    height: 100vh;
+    /* height: 100vh; */
     align-items: stretch;
     justify-content: space-between;
     background-color:#A8C3BC;
@@ -78,4 +78,8 @@
 
   .button2:hover {
     cursor: pointer;
+  }
+
+  .title2 {
+    font-size: 16px;
   }
