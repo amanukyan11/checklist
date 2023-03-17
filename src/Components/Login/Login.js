@@ -32,8 +32,8 @@ class login extends Component {
         {this.showLogin && <Existinguser />}
         {this.showNewProfile && <Newuser switchProfile={this.switchProfile} />}
         <div style={{backgroundColor:"#A8C3BC", height: "40vh"}}>
-          <div style={{width: "fit-content", margin:"auto"}}>
-            <button onClick={this.switchProfile}>{this.buttonText}</button>
+          <div style={{width: "fit-content", margin:"auto", paddingTop:"100px"}}>
+          <button onClick={this.switchProfile}>{this.buttonText}</button>
           </div>
         </div>
       </div>

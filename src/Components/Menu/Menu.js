@@ -233,9 +233,10 @@ function Menu (props) {
         <div className="checklistSection"> 
             <h1 className="centerTop">
                 <div className="titles">Checklist</div>
-                <button className="growTreeButton button" onClick={removeCompletedTask}>Grow Tree</button>
+                
             </h1>
             {curList.listid && <Checklist list={curList} tasks={tasks} setTasks={setTasks} numberOfTasks={numberOfTasks} setNumberOfTasks={setNumberOfTasks} completed={completed} updateCompleted={updateCompleted} listUpdate={onListUpdate} isSaved={isSaved} setIsSaved={setIsSaved} completedTasks={completedTasks} setCompleteTasks={setCompleteTasks} />}
+            <button className="growTreeButton button" onClick={removeCompletedTask}>Grow Tree</button>
             <footer className="centerBottom">
                 <ProgressBar completed={completed}/>
             </footer>
